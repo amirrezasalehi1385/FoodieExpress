@@ -8,6 +8,6 @@ public interface UserInterface<T, ID>{
     List<T> getAll();
     void update(T entity);
     void deleteById(ID id);
-//    void delete(T entity);
+    void delete(T entity);
     boolean existsById(ID id);
 }

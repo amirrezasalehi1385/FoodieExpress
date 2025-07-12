@@ -102,6 +102,24 @@ public class UserDao implements UserInterface<User,Long> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void delete(User user) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            if (!session.contains(user)) {
+                user = (User) session.merge(user);
+            }
+            session.delete(user);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public List<User> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

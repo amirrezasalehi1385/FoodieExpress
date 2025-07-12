@@ -16,8 +16,8 @@ public class Vendor extends User {
         super();
         setRole(Role.VENDOR);
     }
-    public Vendor(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, String bankName, String accountNumber, BankInfo bankInfo) {
-        super(fullName, address, phoneNumber, email, password, profileImageBase64, bankName, accountNumber, bankInfo);
+    public Vendor(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, BankInfo bankInfo) {
+        super(fullName, address, phoneNumber, email, password, profileImageBase64, bankInfo);
         setRole(Role.VENDOR);
     }
 }

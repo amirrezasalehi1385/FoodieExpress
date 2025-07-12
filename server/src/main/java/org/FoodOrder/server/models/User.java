@@ -33,8 +33,6 @@ public abstract class User {
     private String profileImageBase64;
     @Embedded
     private BankInfo bankInfo;
-    private String bankName;
-    private String accountNumber;
     @Column(nullable = false)
     private boolean isVerified = false;
     @CreationTimestamp
@@ -50,15 +48,13 @@ public abstract class User {
 
     public User() {}
 
-    public User(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, String bankName, String accountNumber, BankInfo bankInfo) {
+    public User(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, BankInfo bankInfo) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.address = address;
         this.profileImageBase64 = profileImageBase64;
-        this.bankName = bankName;
-        this.accountNumber = accountNumber;
         this.bankInfo = bankInfo;
     }
 }

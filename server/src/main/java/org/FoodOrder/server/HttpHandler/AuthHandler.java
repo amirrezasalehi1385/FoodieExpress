@@ -19,7 +19,5 @@ import java.io.OutputStream;
 import java.util.Optional;
 
 public class AuthHandler implements HttpHandler {
-    private final AuthController authController;
-    private final ObjectMapper objectMapper;
 
 }
