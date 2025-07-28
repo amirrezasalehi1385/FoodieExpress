@@ -1,9 +1,12 @@
 package org.FoodOrder.server.models;
 
-import org.FoodOrder.server.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.FoodOrder.server.enums.Role;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +14,40 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("CUSTOMER")
+@DiscriminatorValue("BUYER")
 public class Customer extends User {
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @JsonIgnore // نادیده گرفتن ordersAssigned موقع سریالایزیشن
     private List<Order> ordersAssigned = new ArrayList<>();
 
+
+
     @ManyToMany
-    @JoinTable(
-            name = "favorite_restaurants",
+    @JoinTable(name = "customer_favorite_restaurants",
             joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "restaurant_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"customer_id", "restaurant_id"}))
     private List<Restaurant> favoriteRestaurants = new ArrayList<>();
 
     public Customer() {
         super();
-        setRole(Role.CUSTOMER);
+        setRole(Role.BUYER);
     }
 
-    public Customer(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, BankInfo bankInfo) {
-        super(fullName, address, phoneNumber, email, password, profileImageBase64, bankInfo);
-        setRole(Role.CUSTOMER);
+    public Customer(String fullName, String address, String phoneNumber, String password) {
+        super(fullName, address, phoneNumber, password);
+        setRole(Role.BUYER);
+    }
+
+    public void addFavorite(Restaurant restaurant) {
+        if (!this.favoriteRestaurants.contains(restaurant)) {
+            this.favoriteRestaurants.add(restaurant);
+        }
+    }
+
+    public boolean removeFavoriteById(int restaurantId) {
+        return this.favoriteRestaurants.removeIf(restaurant -> restaurant.getId() == restaurantId);
     }
 }

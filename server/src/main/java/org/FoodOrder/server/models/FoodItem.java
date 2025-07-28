@@ -22,18 +22,19 @@ public class FoodItem {
     @Column(name = "description")
     private String description;
 
-    private int count;
+    private int supply;
 
     @ElementCollection
-    @CollectionTable(name = "food_hashtags", joinColumns = @JoinColumn(name = "food_id"))
-    @Column(name = "hashtag")
-    private List<String> hashtags = new ArrayList<>();
+    @CollectionTable(name = "food_categories", joinColumns = @JoinColumn(name = "food_id"))
+    @Column(name = "categories")
+    private List<String> categories = new ArrayList<>();
+
+//    @ManyToMany(mappedBy = "items", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<Menu> menus = new ArrayList<>();
 
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String imageBase64;
-
-    @Enumerated(EnumType.STRING)
-    private FoodCategory category;
 
     @Column(nullable = false)
     private int price;
@@ -47,14 +48,14 @@ public class FoodItem {
 
     public FoodItem(String name,
                     String description,
-                    int count,
-                    List<String> hashtags,
+                    int supply,
+                    List<String> categories,
                     String imageBase64,
                     int price) {
         this.name = name;
         this.description = description;
-        this.count = count;
-        this.hashtags = hashtags;
+        this.supply = supply;
+        this.categories = categories;
         this.imageBase64 = imageBase64;
         this.price = price;
     }

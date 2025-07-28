@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<BorderPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.DeliveryHistoryController">
+    <stylesheets>
+        <URL value="@delivery-history.css" />
+    </stylesheets>
+    <top>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-padding: 10; -fx-background-color: rgba(255, 255, 255, 0.95); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0);">
+            <Label text="Delivery History" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="backButton" text="← Back" onAction="#onBackBtnAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Button>
+        </HBox>
+        <Label fx:id="statusMessageLbl"></Label>
+    </top>
+    <center>
+        <VBox spacing="10">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-box">
+                <Label text="Search:" styleClass="label" />
+                <TextField fx:id="searchField" promptText="Search by ID or address" styleClass="text-field" />
+                <Label text="Vendor:" styleClass="label" />
+                <TextField fx:id="vendorField" promptText="Vendor ID" styleClass="text-field" />
+                <Label text="User:" styleClass="label" />
+                <TextField fx:id="userField" promptText="User ID" styleClass="text-field" />
+                <Button fx:id="filterButton" text="Filter" onAction="#onFilterAction" styleClass="filter-button" />
+            </HBox>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
+                <VBox fx:id="deliveryHistoryBox" spacing="15" styleClass="delivery-box">
+                    <BorderPane.alignment>
+                        <javafx.geometry.Pos fx:value="CENTER" />
+                    </BorderPane.alignment>
+                </VBox>
+                <style>
+                    .scroll-bar:vertical {
+                    -fx-background-color: transparent;
+                    -fx-pref-width: 12;
+                    }
+                    .scroll-bar:vertical .track {
+                    -fx-background-color: rgba(255, 255, 255, 0.2);
+                    -fx-border-color: transparent;
+                    -fx-background-radius: 8;
+                    }
+                    .scroll-bar:vertical .thumb {
+                    -fx-background-color: linear-gradient(to bottom, #3498db, #764ba2);
+                    -fx-background-radius: 8;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);
+                    }
+                    .scroll-bar:vertical .thumb:hover {
+                    -fx-background-color: linear-gradient(to bottom, #2980b9, #663399);
+                    }
+                    .scroll-bar:vertical .thumb:pressed {
+                    -fx-background-color: linear-gradient(to bottom, #1f618d, #512e7a);
+                    }
+                    .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+                    -fx-background-color: transparent;
+                    -fx-pref-height: 0;
+                    -fx-pref-width: 0;
+                    }
+                    .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+                    -fx-shape: "";
+                    -fx-padding: 0;
+                    }
+                </style>
+            </ScrollPane>
+        </VBox>
+    </center>
+    <bottom>
+        <fx:include source="footer.fxml"/>
+    </bottom>
+</BorderPane>

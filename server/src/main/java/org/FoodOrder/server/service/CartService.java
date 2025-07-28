@@ -1,50 +1,36 @@
 package org.FoodOrder.server.service;
-import org.FoodOrder.server.DAO.CartDao;
-import org.FoodOrder.server.DAO.FoodDao;
-import org.FoodOrder.server.models.*;
+
+import org.FoodOrder.server.DTO.CartDto;
+import org.FoodOrder.server.DTO.CartItemDto;
+import org.FoodOrder.server.models.Cart;
+import org.FoodOrder.server.models.CartItem;
+import org.FoodOrder.server.models.FoodItem;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartService {
-
-    private final CartDao cartDao;
-    private final FoodDao foodItemDao;
-
-    public CartService(CartDao cartDao, FoodDao foodItemDao) {
-        this.cartDao = cartDao;
-        this.foodItemDao = foodItemDao;
+    public static CartItemDto convertToCartItemDto(CartItem cartItem) {
+        return new CartItemDto(
+                cartItem.getId(),
+                FoodItemService.convertToDto(cartItem.getFood()),
+                cartItem.getCount()
+        );
     }
 
-    public void addToCart(Long customerId, Long foodId, int count) {
-        Cart cart = cartDao.findByCustomerId(customerId);
-        FoodItem food = foodItemDao.findById(foodId);
-
-        if (cart == null) {
-            cart = new Cart();
-            cart.setCustomer(new Customer());
-            cartDao.save(cart);
-        }
-
-        cart.addItem(food, count);
-        cartDao.save(cart);
+    public static List<CartItemDto> convertToCartItemDtoList(List<CartItem> cartItems) {
+        return cartItems.stream()
+                .map(CartService::convertToCartItemDto)
+                .collect(Collectors.toList());
     }
 
-    public void removeFromCart(Long customerId, Long foodId) {
-        Cart cart = cartDao.findByCustomerId(customerId);
-        if (cart != null) {
-            FoodItem food = foodItemDao.findById(foodId);
-            cart.removeItem(food);
-            cartDao.save(cart);
-        }
-    }
-
-    public void clearCart(Long customerId) {
-        Cart cart = cartDao.findByCustomerId(customerId);
-        if (cart != null) {
-            cart.clear();
-            cartDao.save(cart);
-        }
-    }
-
-    public Cart getCart(Long customerId) {
-        return cartDao.findByCustomerId(customerId);
+    public static CartDto convertToCartDto(Cart cart) {
+        List<CartItemDto> itemDtos = convertToCartItemDtoList(cart.getItems());
+        return new CartDto(cart.getId(), cart.getCustomer().getId(), itemDtos);
     }
 }

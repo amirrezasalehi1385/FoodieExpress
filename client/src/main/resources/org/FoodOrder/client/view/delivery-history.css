@@ -1,0 +1,71 @@
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom, #f5f7fa, #e4e9f0);
+}
+
+.filter-box {
+    -fx-padding: 10px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-pref-width: 150px;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d8e0;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px;
+}
+
+.filter-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+.delivery-box {
+    -fx-padding: 10px;
+}
+
+.status-message {
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 8px;
+    -fx-background-color: #e9ecef;
+    -fx-text-fill: #6c757d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+    -fx-font-weight: bold;
+    -fx-opacity: 0;
+    -fx-transition: opacity 0.3s ease-in-out; /* انتقال نرم */
+}
+
+.status-message.error {
+    -fx-background-color: #ffebee;
+    -fx-text-fill: #dc3545;
+}
+
+.status-message.error {
+    -fx-background-color: #ffebee;
+    -fx-text-fill: #dc3545;
+}

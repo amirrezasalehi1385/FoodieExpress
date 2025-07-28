@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MenuDao {
 
-    public void save(Menu menu) {
+    public static void save(Menu menu) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -25,7 +25,7 @@ public class MenuDao {
         }
     }
 
-    public void update(Menu menu) {
+    public static void update(Menu menu) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -37,7 +37,7 @@ public class MenuDao {
         }
     }
 
-    public void delete(Long id) {
+    public static void delete(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -51,7 +51,7 @@ public class MenuDao {
             e.printStackTrace();
         }
     }
-    List<Menu> findByRestaurantId(Long id) {
+    public static List<Menu> findByRestaurantId(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Menu WHERE restaurant.id = :restaurantId";
             return session.createQuery(hql, Menu.class)

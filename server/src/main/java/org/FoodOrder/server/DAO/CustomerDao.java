@@ -1,10 +1,11 @@
 package org.FoodOrder.server.DAO;
+
 import org.FoodOrder.server.models.Customer;
-import org.FoodOrder.server.models.User;
+import org.FoodOrder.server.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.FoodOrder.server.utils.HibernateUtil;
+import org.hibernate.Hibernate;
 
 import java.util.List;
 
@@ -26,7 +27,11 @@ public class CustomerDao implements UserInterface<Customer, Long> {
     @Override
     public Customer findById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Customer.class, id);
+            Customer customer = session.get(Customer.class, id);
+            if (customer != null) {
+                Hibernate.initialize(customer.getFavoriteRestaurants());
+            }
+            return customer;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -49,6 +54,7 @@ public class CustomerDao implements UserInterface<Customer, Long> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             session.merge(entity);
+            Hibernate.initialize(entity.getFavoriteRestaurants());
             tx.commit();
         } catch (Exception e) {
             if (tx != null) tx.rollback();
@@ -76,7 +82,7 @@ public class CustomerDao implements UserInterface<Customer, Long> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             if (!session.contains(entity)) {
-                entity = (Customer) session.merge(entity);
+                entity = session.merge(entity);
             }
             session.remove(entity);
             tx.commit();
@@ -100,7 +106,7 @@ public class CustomerDao implements UserInterface<Customer, Long> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Customer> query = session.createQuery(
                     "FROM Customer c WHERE c.email = :email", Customer.class);
-            query.setParameter("email", email);
+            query.setParameter(" slams", email);
             return query.uniqueResult();
         } catch (Exception e) {
             System.out.println("no result");
@@ -123,7 +129,7 @@ public class CustomerDao implements UserInterface<Customer, Long> {
     public Customer findByPhone(String phone) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Customer> query = session.createQuery(
-                    "FROM Customer c WHERE c.phoneNumber = :phone", Customer.class);
+                    "FROM Customer c WHERE c.phone = :phone", Customer.class);
             query.setParameter("phone", phone);
             return query.uniqueResult();
         } catch (Exception e) {
@@ -132,4 +138,3 @@ public class CustomerDao implements UserInterface<Customer, Long> {
         }
     }
 }
-

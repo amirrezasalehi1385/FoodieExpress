@@ -1,0 +1,200 @@
+/* Minimal & Elegant Table Styles for JavaFX 21 */
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e1e5e9;
+    -fx-border-width: 1;
+    -fx-padding: 0;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0, 0, 3);
+    -fx-background-insets: 0;
+}
+
+/* Clean Header Background */
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 0;
+    -fx-border-color: #e1e5e9;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-insets: 0;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e1e5e9;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 10 10 0 0;
+}
+
+/* Header Cells */
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: #e1e5e9;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 16 12;
+}
+
+/* Header Text - Clean & Modern */
+.table-view .column-header .label {
+    -fx-text-fill: #495057;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0;
+}
+
+/* Table Cells - Clean Spacing */
+.table-view .table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: #343a40;
+    -fx-padding: 14 12;
+    -fx-border-color: #f1f3f4;
+    -fx-border-width: 0 0 1 0;
+    -fx-font-size: 13px;
+    -fx-background-color: transparent;
+}
+
+/* Subtle Row Styling */
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f0f7ff;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #1976d2;
+}
+
+/* Clean Action Buttons */
+.table-view .button {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-text-fill: white;
+    -fx-padding: 6 14;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-min-width: 70;
+    -fx-pref-height: 28;
+    -fx-border-width: 0;
+}
+
+.table-view .button.approve-button {
+    -fx-background-color: #10b981;
+}
+
+.table-view .button.approve-button:hover {
+    -fx-background-color: #059669;
+}
+
+.table-view .button.reject-button {
+    -fx-background-color: #ef4444;
+}
+
+.table-view .button.reject-button:hover {
+    -fx-background-color: #dc2626;
+}
+
+.table-view .button:pressed {
+    -fx-opacity: 0.9;
+}
+
+/* Clean Status Labels */
+.status-approved {
+    -fx-text-fill: #059669;
+    -fx-font-weight: 600;
+    -fx-background-color: #d1fae5;
+    -fx-padding: 4 8;
+    -fx-background-radius: 12;
+    -fx-font-size: 11px;
+}
+
+.status-pending {
+    -fx-text-fill: #d97706;
+    -fx-font-weight: 600;
+    -fx-background-color: #fef3c7;
+    -fx-padding: 4 8;
+    -fx-background-radius: 12;
+    -fx-font-size: 11px;
+}
+
+.status-rejected {
+    -fx-text-fill: #dc2626;
+    -fx-font-weight: 600;
+    -fx-background-color: #fee2e2;
+    -fx-padding: 4 8;
+    -fx-background-radius: 12;
+    -fx-font-size: 11px;
+}
+
+/* Remove default focus styling */
+.table-view:focused {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1;
+}
+
+/* Corner styling */
+.table-view .corner {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 10 0 0 0;
+}
+
+/* Clean Scrollbar */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 0;
+    -fx-background-radius: 0;
+}
+
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: #f1f3f4;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #d1d5db;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+}
+
+.table-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9ca3af;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+/* Empty table placeholder */
+.table-view .placeholder {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}
+
+/* Column resize indicator */
+.table-view .column-resize-line {
+    -fx-stroke: #3b82f6;
+    -fx-stroke-width: 1;
+}

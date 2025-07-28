@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="rootPane" prefHeight="600" prefWidth="900" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.ProfileController">
+
+    <!-- Top Section: Header + Profile Picture (Fixed) -->
+    <top>
+        <VBox spacing="25" style="-fx-padding: 25; -fx-background: linear-gradient(to bottom, #b1006a 0%, #764ba2 100%);">
+
+            <!-- Header with Glass Morphism Effect -->
+            <HBox alignment="CENTER" spacing="15" style="-fx-padding: 18 25; -fx-background-color: rgba(255, 255, 255, 0.15); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 5); -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 20; -fx-border-width: 1;">
+                <Button fx:id="cancleBtn" onAction="#onCancleBtnAction" style="-fx-text-fill: white; -fx-background-color: rgba(255,255,255,0.2); -fx-font-size: 15; -fx-font-weight: 600; -fx-background-radius: 12; -fx-padding: 10 18; -fx-cursor: hand; -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 12; -fx-border-width: 1;" text="← Back" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);" text="My Profile" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="editBtn" onAction="#onEditAction" style="-fx-text-fill: white; -fx-background-color: rgba(33, 150, 243, 0.8); -fx-font-size: 15; -fx-font-weight: 600; -fx-background-radius: 12; -fx-padding: 10 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.4), 10, 0, 0, 3);" text="Edit ✎" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Section: Scrollable Information (Scrollable) -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox spacing="25" style="-fx-padding: 25; -fx-background-color: transparent;">
+                <VBox alignment="CENTER" spacing="15" style="-fx-padding: 30 20; -fx-background-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 8); -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 25; -fx-border-width: 1;">
+                    <StackPane alignment="CENTER" prefHeight="120" prefWidth="120">
+                        <!-- Profile Image Background with Gradient -->
+                        <Circle fill="linear-gradient(to bottom right, #ff6b6b, #ee5a24)" radius="60" stroke="rgba(255,255,255,0.8)" strokeWidth="3" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);" />
+                        <Circle fill="rgba(255,255,255,0.1)" radius="55" />
+                        <ImageView fx:id="profileImageView" fitHeight="110" fitWidth="110" preserveRatio="true" smooth="true" style="-fx-clip: circle(55px at center);" />
+                    </StackPane>
+
+                    <!-- User Name with Elegant Typography -->
+                    <Label fx:id="userNameDisplay" style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 3, 0, 0, 2);" text="User Name" />
+
+                    <!-- Status Badge -->
+                    <HBox alignment="CENTER">
+                        <Label style="-fx-text-fill: white; -fx-font-size: 13; -fx-background-color: rgba(76, 175, 80, 0.8); -fx-background-radius: 15; -fx-padding: 5 15; -fx-font-weight: 600;" text="✓ Verified Account" />
+                    </HBox>
+                </VBox>
+                <!-- Personal Information Card -->
+                <VBox spacing="20" style="-fx-padding: 25; -fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 8);">
+                    <!-- Section Header -->
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label style="-fx-font-size: 20;" text="👤" />
+                        <Label style="-fx-text-fill: #2c3e50; -fx-font-size: 18; -fx-font-weight: bold;" text="Personal Information" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Circle fill="linear-gradient(to right, #667eea, #764ba2)" radius="3" />
+                    </HBox>
+
+                    <!-- Information Grid with Modern Layout -->
+                    <GridPane hgap="20" style="-fx-padding: 10 0;" vgap="18">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="35" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="65" />
+                        </columnConstraints>
+
+                        <!-- Full Name Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Full Name" />
+                            <Circle fill="#3498db" radius="2" />
+                        </VBox>
+                        <Label fx:id="fullNameLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <!-- Phone Number Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Phone Number" />
+                            <Circle fill="#e74c3c" radius="2" />
+                        </VBox>
+                        <Label fx:id="phoneLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <!-- Address Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Address" />
+                            <Circle fill="#f39c12" radius="2" />
+                        </VBox>
+                        <Label fx:id="addressLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <!-- Email Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Email Address" />
+                            <Circle fill="#9b59b6" radius="2" />
+                        </VBox>
+                        <Label fx:id="emailLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
+                        </rowConstraints>
+                    </GridPane>
+                </VBox>
+
+                <!-- Bank Information Card -->
+                <VBox spacing="20" style="-fx-padding: 25; -fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 8);">
+                    <!-- Section Header -->
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label style="-fx-font-size: 20;" text="🏦" />
+                        <Label style="-fx-text-fill: #2c3e50; -fx-font-size: 18; -fx-font-weight: bold;" text="Bank Information" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </HBox>
+
+                    <!-- Bank Information Grid -->
+                    <GridPane hgap="20" style="-fx-padding: 10 0;" vgap="18">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="35" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="65" />
+                        </columnConstraints>
+
+                        <!-- Bank Name Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Bank Name" />
+                            <Circle fill="#27ae60" radius="2" />
+                        </VBox>
+                        <Label fx:id="bankNameLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                        <!-- Account Number Row -->
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-weight: 600; -fx-text-transform: uppercase;" text="Account Number" />
+                            <Circle fill="#e67e22" radius="2" />
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label fx:id="accountNumberLabel" style="-fx-text-fill: #2c3e50; -fx-font-size: 16; -fx-font-weight: 600; -fx-padding: 12 15; -fx-background-color: #f8f9fa; -fx-background-radius: 10;" HBox.hgrow="ALWAYS" />
+                        </HBox>
+                        <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints />
+                        </rowConstraints>
+                    </GridPane>
+                </VBox>
+
+                <!-- Action Buttons Section -->
+                <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20 0 40 0;">
+                    <!-- Logout Button with Modern Design -->
+                    <Button fx:id="logoutButton" onAction="#onLogoutAction" style="-fx-background-color: linear-gradient(to right, #ff6b6b, #ee5a24); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: 600; -fx-cursor: hand; -fx-border-width: 0; -fx-background-radius: 15; -fx-padding: 12 30; -fx-effect: dropshadow(gaussian, rgba(238, 90, 36, 0.4), 15, 0, 0, 5);" text="Sign Out" />
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom Section: Navigation Buttons (Fixed) -->
+    <bottom>
+        <fx:include source="footer.fxml"/>
+    </bottom>
+</BorderPane>

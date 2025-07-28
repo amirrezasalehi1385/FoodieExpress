@@ -1,12 +1,15 @@
 package org.FoodOrder.server.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.FoodOrder.server.DAO.FoodDao;
+import org.FoodOrder.server.exceptions.NotFoundException;
 
 @Getter
 @Setter
@@ -21,7 +24,7 @@ public class Menu {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany(fetch = FetchType.LAZY /*یا EAGER با دقت*/, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "menu_items",
             joinColumns = @JoinColumn(name = "menu_id"),
@@ -40,7 +43,18 @@ public class Menu {
 
     public void addItem(FoodItem item) {
         items.add(item);
-        // اگر رابطه دوطرفه هست، این خط را اضافه کن:
-        // item.getMenus().add(this);
+    }
+    public void removeItem(int itemId) throws NotFoundException {
+        Iterator<FoodItem> iterator = items.iterator();
+        FoodItem item = null;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.getId() == itemId) {
+                iterator.remove();
+                return;
+            }
+            item=null;
+        }
+        if (item==null){throw new NotFoundException("item is not  found in menu", 404);}
     }
 }

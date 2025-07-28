@@ -1,6 +1,5 @@
-package dao;
+package org.FoodOrder.server.DAO;
 
-import org.FoodOrder.server.DAO.UserInterface;
 import org.FoodOrder.server.models.Vendor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -122,7 +121,7 @@ public class VendorDao implements UserInterface<Vendor, Long> {
 
     public Vendor findByPhone(String phone) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Vendor v WHERE v.phoneNumber = :phone", Vendor.class)
+            return session.createQuery("FROM Vendor v WHERE v.phone = :phone", Vendor.class)
                     .setParameter("phone", phone)
                     .uniqueResult();
         } catch (Exception e) {

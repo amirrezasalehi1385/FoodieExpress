@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.SignUpController">
+    <!-- Top Section: Header -->
+    <top>
+        <VBox style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0);">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="🍔 FoodieExpress" />
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Section: Sign Up Form and Image -->
+    <center>
+        <HBox alignment="CENTER" spacing="0">
+            <!-- Left Side: Scrollable Sign Up Form -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" prefWidth="600.0">
+                <content>
+                    <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40;">
+                        <VBox alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0.5, 0.0, 5.0);">
+                            <!-- Title -->
+                            <Label text="🍽️ Sign Up" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                <font>
+                                    <Font name="System Bold" size="36.0" />
+                                </font>
+                            </Label>
+                            <!-- Subtitle -->
+                            <Label text="Create your FoodieExpress account to start ordering or selling!" style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <!-- Spacer -->
+                            <Region prefHeight="20.0" />
+                            <!-- Full Name Field -->
+                            <VBox spacing="10">
+                                <Label fx:id="fullNameLabel" text="Full Name" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="fullNameInput" promptText="Enter your full name" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                            </VBox>
+                            <!-- Phone Field -->
+                            <VBox spacing="10">
+                                <Label fx:id="phoneLabel" text="Phone Number" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="phoneInput" promptText="Enter your phone number" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                <Label fx:id="phoneWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </VBox>
+                            <!-- Email Field -->
+                            <VBox spacing="10">
+                                <Label fx:id="emailLabel" text="Email (Optional)" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="emailInput" promptText="Enter your email" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                <Label fx:id="emailWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </VBox>
+                            <!-- Password Field -->
+                            <VBox spacing="10">
+                                <Label fx:id="passwordLabel" text="Password" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <PasswordField fx:id="passwordInput" promptText="Enter your password" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                <Label fx:id="passwordWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </VBox>
+                            <!-- Address Field -->
+                            <VBox spacing="10">
+                                <Label fx:id="addressLabel" text="Address" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="addressInput" promptText="Enter your address" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                <Label fx:id="addressWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </VBox>
+                            <!-- Role ComboBox -->
+                            <VBox spacing="10">
+                                <Label fx:id="roleLabel" text="Role" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="roleComboBox" promptText="Select your role" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                <Label fx:id="roleWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                            </VBox>
+                            <!-- Bank Info Section -->
+                            <VBox spacing="10">
+                                <Label fx:id="bankInfoLabel" text="Bank Information (Optional)" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <!-- Bank Name -->
+                                <VBox spacing="10">
+                                    <Label fx:id="bankNameLabel" text="Bank Name" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <TextField fx:id="bankNameInput" promptText="Enter bank name" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                </VBox>
+                                <!-- Account Number -->
+                                <VBox spacing="10">
+                                    <Label fx:id="accountNoLabel" text="Account Number" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <TextField fx:id="accountNumberInput" promptText="Enter account number" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 12; -fx-font-size: 14;" />
+                                    <Label fx:id="accountNumberWarning" text="" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c;" visible="false">
+                                        <font>
+                                            <Font size="12.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                            </VBox>
+                            <!-- Sign Up Button -->
+                            <Button fx:id="signUpButton" onAction="#onRegisterButtonAction" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 25; -fx-padding: 12 40; -fx-cursor: hand; -fx-font-weight: bold;" text="Sign Up">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Button>
+                            <!-- Login Link -->
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="Already have an account?" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="loginLink" onAction="#onLoginLinkAction" style="-fx-background-color: transparent; -fx-text-fill: #3498db; -fx-font-size: 14px; -fx-underline: true; -fx-cursor: hand;" text="Sign In">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Button>
+                            </HBox>
+                            <!-- Status Message -->
+                            <Label fx:id="statusMessageLbl" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c;" visible="false">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+                    </VBox>
+                </content>
+                <style>
+                    .scroll-bar:vertical {
+                    -fx-background-color: transparent;
+                    -fx-pref-width: 0; /* کاهش عرض به حداقل */
+                    }
+                    .scroll-bar:vertical .track {
+                    -fx-background-color: transparent; /* کاملاً شفاف */
+                    -fx-border-color: transparent;
+                    -fx-background-radius: 0;
+                    }
+                    .scroll-bar:vertical .thumb {
+                    -fx-background-color: transparent; /* کاملاً شفاف */
+                    -fx-background-radius: 0;
+                    -fx-effect: none; /* حذف افکت */
+                    }
+                    .scroll-bar:vertical .thumb:hover {
+                    -fx-background-color: transparent;
+                    }
+                    .scroll-bar:vertical .thumb:pressed {
+                    -fx-background-color: transparent;
+                    }
+                    .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+                    -fx-background-color: transparent;
+                    -fx-pref-height: 0;
+                    -fx-pref-width: 0;
+                    }
+                    .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+                    -fx-shape: "";
+                    -fx-padding: 0;
+                    }
+                </style>
+            </ScrollPane>
+            <!-- Right Side: Static Image -->
+            <VBox alignment="CENTER" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);">
+                <ImageView fx:id="foodImage" fitHeight="800.0" fitWidth="600.0" preserveRatio="true">
+                    <image>
+                        <Image url="@images/photo-1532980400857-e8d9d275d858.jpeg" />
+                    </image>
+                </ImageView>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

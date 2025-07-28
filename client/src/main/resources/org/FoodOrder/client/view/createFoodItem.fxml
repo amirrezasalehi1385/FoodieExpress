@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fx:controller="org.FoodOrder.client.controllers.FoodFormController"
+            xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true"
+            fitToHeight="true"
+            style="-fx-background: transparent;"
+            prefWidth="520" prefHeight="720">
+
+    <VBox spacing="20"
+          style="-fx-padding: 35; -fx-background-color: linear-gradient(to bottom, #667eea, #764ba2); -fx-background-radius: 25;"
+          prefWidth="520">
+        <!-- Header Section -->
+        <VBox spacing="8" alignment="CENTER">
+            <Label text="🍽 Create New Food Item"
+                   style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);"/>
+            <Label text="Fill in the details below to add a new delicious item"
+                   style="-fx-font-size: 14; -fx-text-fill: rgba(255,255,255,0.8);"/>
+        </VBox>
+
+        <!-- Main Form Container -->
+        <VBox spacing="20"
+              style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 20; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+
+            <!-- Image Upload Section -->
+            <VBox spacing="12" alignment="CENTER">
+                <Label text="📷 Product Image"
+                       style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                <!-- Image Preview Container -->
+                <StackPane prefWidth="200" prefHeight="200"
+                           style="-fx-background-color: #f8f9fa; -fx-background-radius: 15; -fx-border-color: #dee2e6; -fx-border-radius: 15; -fx-border-width: 2; -fx-border-style: dashed;">
+
+                    <!-- Default placeholder when no image -->
+                    <VBox fx:id="imagePlaceholder" spacing="8" alignment="CENTER">
+                        <Label text="📸" style="-fx-font-size: 36; -fx-text-fill: #adb5bd;"/>
+                        <Label text="No image selected" style="-fx-font-size: 12; -fx-text-fill: #6c757d;"/>
+                    </VBox>
+
+                    <!-- Image preview (initially hidden) -->
+                    <ImageView fx:id="profileImageView" fitWidth="190" fitHeight="190" preserveRatio="true"
+                               visible="false"/>
+                </StackPane>
+
+                <!-- Upload buttons -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button onAction="#onUploadImageBtnAction" fx:id="uploadImageBtn" text="📁 Choose Image"
+                            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20; -fx-font-weight: bold;"/>
+                    <Button fx:id="removeImageBtn" text="🗑️ Remove" visible="false"
+                            style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20;"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- Form Fields -->
+            <GridPane hgap="15" vgap="18">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="35"/>
+                    <ColumnConstraints percentWidth="65"/>
+                </columnConstraints>
+
+                <!-- Name Field -->
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="5">
+                    <Label text="Name:" style="-fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                </VBox>
+                <TextField fx:id="nameInput" promptText="Enter delicious food name"
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #ced4da; -fx-border-radius: 10; -fx-background-color: white;"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Description Field -->
+                <VBox GridPane.rowIndex="2" GridPane.columnIndex="0" spacing="5">
+                    <Label text="Description:" style="-fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                </VBox>
+                <TextArea fx:id="descriptionInput" promptText="Describe this amazing food item..."
+                          prefRowCount="3" wrapText="true"
+                          style="-fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #ced4da; -fx-border-radius: 10; -fx-background-color: white;"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <VBox GridPane.rowIndex="4" GridPane.columnIndex="0" spacing="5">
+                    <Label text="Price:" style="-fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                </VBox>
+                <TextField fx:id="priceInput" promptText="Enter price (e.g., 1299)"
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #ced4da; -fx-border-radius: 10; -fx-background-color: white;"
+                           GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <!-- Supply Field -->
+                <VBox GridPane.rowIndex="5" GridPane.columnIndex="0" spacing="5">
+                    <Label text="Supply:" style="-fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                </VBox>
+                <TextField fx:id="supplyInput" promptText="Available quantity"
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #ced4da; -fx-border-radius: 10; -fx-background-color: white;"
+                           GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <!-- Categories Field -->
+                <!-- Badge container -->
+                <FlowPane fx:id="badgeContainer"
+                          GridPane.rowIndex="7" GridPane.columnIndex="1"
+                          hgap="8" vgap="8"
+                          prefWrapLength="300"
+                          style="-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-background-radius: 10;"/>
+
+                <VBox GridPane.rowIndex="6" GridPane.columnIndex="0" spacing="5">
+                    <Label text="Categories:" style="-fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                </VBox>
+
+                <VBox GridPane.rowIndex="6" GridPane.columnIndex="1" spacing="8">
+                    <HBox spacing="8">
+                        <ListView fx:id="categoriesListView"
+                                  prefHeight="120"
+                                  style="-fx-background-radius: 10; -fx-border-color: #ced4da; -fx-border-radius: 10; -fx-background-color: white;"
+                                  editable="false"/>
+                        <Button fx:id="addCategoryBtn"
+                                text="➕"
+                                style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 12;"/>
+                    </HBox>
+                </VBox>
+
+            </GridPane>
+        </VBox>
+
+        <!-- Action Buttons -->
+        <HBox spacing="15" alignment="CENTER">
+            <Button fx:id="cancelBtn" text="❌ Cancel"
+                    prefWidth="120"
+                    style="-fx-background-color: rgba(231,76,60,0.9); -fx-text-fill: white; -fx-background-radius: 25; -fx-padding: 12 25; -fx-font-weight: bold; -fx-font-size: 14; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);"/>
+            <Button onAction="#onCreateAction" fx:id="createBtn" text="✨ Create Item"
+                    prefWidth="140"
+                    style="-fx-background-color: rgba(52,152,219,0.9); -fx-text-fill: white; -fx-background-radius: 25; -fx-padding: 12 25; -fx-font-weight: bold; -fx-font-size: 14; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);"/>
+        </HBox>
+        <Label fx:id="statusMessageLbl"></Label>
+    </VBox>
+</ScrollPane>

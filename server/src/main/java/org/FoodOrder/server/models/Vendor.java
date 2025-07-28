@@ -1,23 +1,39 @@
 package org.FoodOrder.server.models;
 
-import org.FoodOrder.server.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.FoodOrder.server.enums.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 @Getter
 @Setter
-@Entity
-@DiscriminatorValue("VENDOR")
+@DiscriminatorValue("SELLER")
 public class Vendor extends User {
-    @OneToOne(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Restaurant restaurant;
+
+    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
+    private List<Restaurant> restaurants = new ArrayList<>();
+
     public Vendor() {
         super();
-        setRole(Role.VENDOR);
+        setRole(Role.SELLER);
     }
-    public Vendor(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, BankInfo bankInfo) {
-        super(fullName, address, phoneNumber, email, password, profileImageBase64, bankInfo);
-        setRole(Role.VENDOR);
+
+    public Vendor(String fullName, String address, String phoneNumber, String password) {
+        super(fullName, address, phoneNumber, password);
+        setRole(Role.SELLER);
+    }
+
+    public void addRestaurant(Restaurant restaurant) {
+        restaurants.add(restaurant);
+        restaurant.setSeller(this);
+    }
+
+    public void removeRestaurant(Restaurant restaurant) {
+        restaurants.remove(restaurant);
+        restaurant.setSeller(null);
     }
 }

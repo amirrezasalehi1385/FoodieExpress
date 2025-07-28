@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.FoodOrder.client.controllers.SeeAllRestaurantsController"
+            prefHeight="700.0" prefWidth="1000.0"
+            style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+
+    <top>
+        <!-- Header Section -->
+        <VBox spacing="20" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+            <padding>
+                <Insets top="30" right="40" bottom="30" left="40"/>
+            </padding>
+
+            <!-- Title -->
+            <Label text="Discover Amazing Restaurants"
+                   style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                <font>
+                    <Font name="System Bold" size="32.0"/>
+                </font>
+            </Label>
+
+            <Label text="Find your favorite cuisine and explore new flavors"
+                   style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d; -fx-opacity: 0.9;"/>
+
+            <!-- Search Section -->
+            <HBox spacing="15" alignment="CENTER_LEFT" maxWidth="600">
+                <TextField fx:id="searchField"
+                           promptText="🔍 Search restaurants by name, cuisine, or location..."
+                           prefWidth="570"
+                           prefHeight="45"
+                           style="-fx-background-color: #f8f9fa;
+                                 -fx-border-color: #dee2e6;
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 25;
+                                 -fx-background-radius: 25;
+                                 -fx-padding: 0 20 0 20;
+                                 -fx-font-size: 14px;
+                                 -fx-prompt-text-fill: #6c757d;
+                                 -fx-effect: innershadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <!-- Main Content Area -->
+        <StackPane>
+            <ScrollPane fitToWidth="true"
+                        fitToHeight="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        style="-fx-background-color: transparent; -fx-background: transparent;">
+                <content>
+                    <VBox fx:id="restaurantContainer"
+                          spacing="20.0"
+                          style="-fx-background-color: transparent;">
+                        <padding>
+                            <Insets top="30" right="40" bottom="30" left="40"/>
+                        </padding>
+
+                        <!-- Placeholder content for demonstration -->
+                        <Label text="Loading restaurants..."
+                               style="-fx-font-size: 16px; -fx-text-fill: #6c757d; -fx-alignment: center;"/>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </StackPane>
+    </center>
+</BorderPane>

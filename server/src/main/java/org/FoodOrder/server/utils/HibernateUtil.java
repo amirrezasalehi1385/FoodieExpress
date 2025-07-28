@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
     @Getter
     private static SessionFactory sessionFactory;
-
     static {
         try {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();

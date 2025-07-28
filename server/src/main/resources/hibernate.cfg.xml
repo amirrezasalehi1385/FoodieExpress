@@ -8,7 +8,7 @@
 
         <!-- JDBC Config -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/foodorder_db</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/food_db</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">@Ca7h3n5t6</property>
 
@@ -29,11 +29,15 @@
         <mapping class="org.FoodOrder.server.models.Vendor"/>
         <mapping class="org.FoodOrder.server.models.Customer"/>
         <mapping class="org.FoodOrder.server.models.Courier"/>
-        <mapping class="org.FoodOrder.server.models.DeliveryStatus"/>
         <mapping class="org.FoodOrder.server.models.FoodItem"/>
         <mapping class="org.FoodOrder.server.models.Menu"/>
         <mapping class="org.FoodOrder.server.models.Cart"/>
         <mapping class="org.FoodOrder.server.models.BankInfo"/>
+        <mapping class="org.FoodOrder.server.models.Coupon"/>
+        <mapping class="org.FoodOrder.server.models.Transaction"/>
+        <mapping class="org.FoodOrder.server.models.Admin"/>
+
+
 
 
 

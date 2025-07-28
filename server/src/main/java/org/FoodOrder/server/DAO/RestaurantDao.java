@@ -1,5 +1,6 @@
 package org.FoodOrder.server.DAO;
 
+import org.FoodOrder.server.models.Order;
 import org.FoodOrder.server.models.Restaurant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class RestaurantDao {
 
-    public void save(Restaurant restaurant) {
+    public static void save(Restaurant restaurant) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -19,10 +20,12 @@ public class RestaurantDao {
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
+            throw e;
         }
     }
 
-    public Restaurant findById(Long id) {
+
+    public static Restaurant findById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(Restaurant.class, id);
         } catch (Exception e) {
@@ -30,17 +33,19 @@ public class RestaurantDao {
             return null;
         }
     }
-    public Restaurant findByVendorId(Long id) {
+    public static List<Restaurant> findByVendorId(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM Restaurant WHERE vendor_id = :vendorId";
-            return session.createQuery(hql, Restaurant.class).setParameter("vendorId", id).uniqueResult();
+            String hql = "SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.reviews WHERE r.seller.id = :vendorId";
+            return session.createQuery(hql, Restaurant.class)
+                    .setParameter("vendorId", id)
+                    .getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void update(Restaurant restaurant) {
+    public static void update(Restaurant restaurant) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -52,7 +57,7 @@ public class RestaurantDao {
         }
     }
 
-    public void delete(Long id) {
+    public static void delete(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -67,7 +72,7 @@ public class RestaurantDao {
         }
     }
 
-    public List<Restaurant> findAll() {
+    public static List<Restaurant> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Restaurant> query = session.createQuery("from Restaurant", Restaurant.class);
             return query.list();
@@ -76,5 +81,14 @@ public class RestaurantDao {
             return null;
         }
     }
+    public static List<Restaurant> findByPhoneNumber(String phone) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "from Restaurant where phone = :phone";
+            Query query = session.createQuery(hql);
+            query.setParameter("phone", phone);
+            return query.list();
+        }
+    }
+
 
 }

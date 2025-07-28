@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.FoodOrder.client.controllers.ViewUsersController"
+            stylesheets="@view-users.css">
+
+    <style>
+        -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    </style>
+
+    <!-- Top Section with Back Button and Title -->
+    <top>
+        <VBox spacing="20">
+            <padding>
+                <Insets bottom="0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+
+            <!-- Back Button Row -->
+            <HBox alignment="CENTER_RIGHT">
+                <Button fx:id="backBtn" onAction="#onBackBtnAction"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 12; -fx-padding: 10 20; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);"
+                        text="← Back">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            </HBox>
+
+            <!-- Header Section -->
+            <VBox spacing="8" alignment="CENTER">
+                <style>
+                    -fx-background-color: white;
+                    -fx-background-radius: 12;
+                    -fx-padding: 25;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+                </style>
+
+                <Label text="User Access Management" styleClass="title-label">
+                    <style>
+                        -fx-font-size: 28px;
+                        -fx-font-weight: bold;
+                        -fx-text-fill: #2c3e50;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+                    </style>
+                </Label>
+
+                <Label text="Manage and view all system users with comprehensive details" styleClass="subtitle-label">
+                    <style>
+                        -fx-font-size: 15px;
+                        -fx-text-fill: #6c757d;
+                        -fx-font-style: italic;
+                    </style>
+                </Label>
+            </VBox>
+
+            <!-- Controls Section -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <style>
+                    -fx-background-color: white;
+                    -fx-background-radius: 12;
+                    -fx-padding: 20;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+                </style>
+
+                <Button fx:id="refreshButton" text="🔄 Refresh Users" onAction="#refreshUsers"
+                        styleClass="primary-button">
+                    <style>
+                        -fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe);
+                        -fx-text-fill: white;
+                        -fx-font-size: 15px;
+                        -fx-font-weight: bold;
+                        -fx-padding: 12 25;
+                        -fx-background-radius: 25;
+                        -fx-cursor: hand;
+                        -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.4), 8, 0, 0, 3);
+                        -fx-border-radius: 25;
+                    </style>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Label fx:id="totalUsersLabel" text="Total Users: Loading..." styleClass="info-label">
+                    <style>
+                        -fx-font-size: 14px;
+                        -fx-text-fill: #495057;
+                        -fx-font-weight: bold;
+                        -fx-background-color: #f8f9fa;
+                        -fx-padding: 8 15;
+                        -fx-background-radius: 15;
+                        -fx-border-color: #dee2e6;
+                        -fx-border-width: 1;
+                        -fx-border-radius: 15;
+                    </style>
+                </Label>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Section - Enhanced Table -->
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets bottom="0" left="30.0" right="30.0" top="20.0"/>
+            </padding>
+
+            <VBox spacing="15" VBox.vgrow="ALWAYS">
+                <style>
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 25;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 15, 0, 0, 5);
+                </style>
+
+                <!-- Table Header -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="📊 Users Directory" styleClass="section-title">
+                        <style>
+                            -fx-font-size: 20px;
+                            -fx-font-weight: bold;
+                            -fx-text-fill: #2c3e50;
+                        </style>
+                    </Label>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Status Indicators -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Label text="🟢 Approved" styleClass="status-indicator">
+                            <style>
+                                -fx-font-size: 12px;
+                                -fx-text-fill: #28a745;
+                                -fx-font-weight: bold;
+                                -fx-background-color: rgba(40, 167, 69, 0.1);
+                                -fx-padding: 4 8;
+                                -fx-background-radius: 10;
+                            </style>
+                        </Label>
+                        <Label text="🔴 Pending" styleClass="status-indicator">
+                            <style>
+                                -fx-font-size: 12px;
+                                -fx-text-fill: #dc3545;
+                                -fx-font-weight: bold;
+                                -fx-background-color: rgba(220, 53, 69, 0.1);
+                                -fx-padding: 4 8;
+                                -fx-background-radius: 10;
+                            </style>
+                        </Label>
+                    </HBox>
+                </HBox>
+
+                <!-- Enhanced Table -->
+                <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="🆔 ID" prefWidth="80" minWidth="60"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="fullNameColumn" text="👤 Full Name" prefWidth="180" minWidth="150"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="phoneColumn" text="📞 Phone" prefWidth="140" minWidth="120"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="emailColumn" text="📧 Email" prefWidth="200" minWidth="180"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="roleColumn" text="🎭 Role" prefWidth="120" minWidth="100"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="addressColumn" text="🏠 Address" prefWidth="220" minWidth="200"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="approvalStatusColumn" text="📊 Status" prefWidth="120" minWidth="100"
+                                     styleClass="table-column" />
+
+                        <TableColumn fx:id="actionColumn" text="⚡ Actions" prefWidth="200" minWidth="180"
+                                     styleClass="table-column" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Bottom Section - Fixed to bottom -->
+    <bottom>
+        <VBox>
+            <fx:include source="footer.fxml"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>

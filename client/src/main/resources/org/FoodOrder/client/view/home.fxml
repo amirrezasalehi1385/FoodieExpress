@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane fx:id="rootPane" prefHeight="800" prefWidth="1200" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.HomeController">
+
+    <!-- Header Section -->
+    <top>
+        <VBox style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0);">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="🍔 FoodieExpress" />
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Main Content Area -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40 20 40 20;">
+
+                <!-- Welcome Section -->
+                <VBox alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0.5, 0.0, 5.0);">
+                    <Label style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome Back!" />
+                    <Label style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Discover delicious meals from your favorite restaurants" />
+                </VBox>
+
+                <!-- Quick Actions Grid -->
+                <FlowPane fx:id="quickActionsPane" hgap="25" vgap="25" alignment="CENTER" prefWrapLength="1000">
+                    <!--Available Deliveries-->
+                    <VBox fx:id="availableDeliveriesVBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #27ae60;" text="🚚" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Available Deliveries" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Quick access to current delivery requests" />
+                        <Button fx:id="availableDeliveriesBtn" onAction="#onAvailableDeliveriesBtnAction" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="View Available Deliveries" />
+                    </VBox>
+                    <VBox fx:id="deliveryHistoryVBox" visible="false" managed="false" alignment="CENTER" spacing="15"
+                          style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);"
+                          GridPane.columnIndex="2" GridPane.rowIndex="0">
+
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #27ae60;" text="📦" />
+
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+                               text="Order History" />
+
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;"
+                               text="Review your past delivery requests anytime." />
+
+                        <Button fx:id="deliveryHistoryBtn" onAction="#onDeliveryHistoryBtnAction"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;"
+                                text="View Order History" />
+                    </VBox>
+                    <VBox fx:id="adminUserVBox" visible="false" managed="false" alignment="CENTER" spacing="15"
+                          style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);"
+                          GridPane.columnIndex="2" GridPane.rowIndex="0">
+
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #27ae60;" text="👥" />
+
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+                               text="Manage Users" />
+
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;"
+                               text="View and manage all registered users in the system." />
+
+                        <Button  fx:id="adminUserButton" onAction="#onAdminUserBtnAction"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;"
+                                text="Go to User Management" />
+                    </VBox>
+
+
+                    <!-- Browse Restaurants Card -->
+                    <VBox fx:id="seeRestaurantVBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #2c3e50" text="🏪" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="See all Restaurants" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Explore hundreds of restaurants near you" />
+                        <Button fx:id="seeRestaurantBtn" onAction="#onSeeRestaurantBtnAction" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="Explore Now" />
+                    </VBox>
+
+                    <VBox fx:id="myRestaurantVBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px;-fx-text-fill: #2c3e50"  text="🏪" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="My restaurant" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Explore hundreds of restaurants near you" />
+                        <Button fx:id="myRestaurantButton" onAction="#onMyRestaurantBtnAction" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="See your restaurant sstatus" />
+                    </VBox>
+
+
+
+                    <!-- Your Orders Card -->
+                    <VBox fx:id="myOrderVBox"  visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #2c3e50" text="📋" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Your Orders" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Track your current and past orders" />
+                        <Button fx:id="orderBtn" onAction="#onOrderBtnAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="View Orders" />
+                    </VBox>
+
+                    <VBox fx:id="restaurantOrdersVBox"  visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px;-fx-text-fill: #2c3e50" text="📋" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Your Orders" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Track your current and past orders" />
+                        <Button fx:id="restaurantOrderBtn" onAction="#onRestaurantOrdersBtnAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="View Orders" />
+                    </VBox>
+
+                    <!-- Favorites Card -->
+                    <VBox fx:id="myFavouritesVBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px;-fx-text-fill: #2c3e50" text="❤" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Favorites" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Quick access to your favorite meals" />
+                        <Button fx:id="myFavouritesButton" onAction="#onMyFavouritesBtnAction" style="-fx-background-color: #e91e63; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="View Favorites" />
+                    </VBox>
+
+                    <!-- Favorites Card -->
+                    <VBox fx:id="adminOrdersVBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 15; -fx-padding: 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.5, 0.0, 3.0);" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 48px;-fx-text-fill: #2c3e50" text="📋" />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Orders" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" text="Quick access to all orders" />
+                        <Button fx:id="adminOrdersBtn" onAction="#onAdminOrdersBtnAction" style="-fx-background-color: #e91e63; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25; -fx-padding: 10 20; -fx-cursor: hand;" text="View Favorites" />
+                    </VBox>
+
+                </FlowPane>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Modern Bottom Navigation -->
+    <bottom>
+        <fx:include source="footer.fxml"/>
+    </bottom>
+
+</BorderPane>

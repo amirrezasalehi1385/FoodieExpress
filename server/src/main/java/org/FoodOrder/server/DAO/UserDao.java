@@ -1,7 +1,5 @@
 package org.FoodOrder.server.DAO;
 
-import org.FoodOrder.server.models.Menu;
-import org.FoodOrder.server.models.Restaurant;
 import org.FoodOrder.server.models.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -63,11 +61,11 @@ public class UserDao implements UserInterface<User,Long> {
             return false;
         }
     }
-    public static User findByPhoneNumber(String phoneNumber) {
+    public static User findByPhoneNumber(String phone) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber";
+            String hql = "SELECT u FROM User u WHERE u.phone = :phone";
             return session.createQuery(hql, User.class)
-                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("phone", phone)
                     .getSingleResult();
         }
     }
@@ -84,6 +82,14 @@ public class UserDao implements UserInterface<User,Long> {
             String hql = "SELECT u FROM User u WHERE u.email = :email";
             return session.createQuery(hql ,User.class)
                     .setParameter("email",email)
+                    .getSingleResult();
+        }
+    }
+    public User findByPhone(String phone) {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT u FROM User u WHERE u.phone = :phone";
+            return session.createQuery(hql, User.class)
+                    .setParameter("phone", phone)
                     .getSingleResult();
         }
     }
@@ -124,6 +130,17 @@ public class UserDao implements UserInterface<User,Long> {
     public List<User> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<User> query = session.createQuery("from User ", User.class);
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<User> findAllByRole(String role){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM User u WHERE u.role = :role";
+            Query query = session.createQuery(hql);
+            query.setParameter("role", role);
             return query.list();
         } catch (Exception e) {
             e.printStackTrace();

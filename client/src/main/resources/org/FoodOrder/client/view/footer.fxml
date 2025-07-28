@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:controller="org.FoodOrder.client.controllers.FooterController" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER" spacing="17" style="-fx-background-color: #dddddd; -fx-padding: 10;">
+    <Button onAction="#onDeliveriesBtnAction" fx:id="deliveryBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="📦 Deliveries" />
+    <Button onAction="#onSeeAllRestaurantsBtnAction" fx:id="restaurantsBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="🍽 Restaurants" />
+    <Button onAction="#onMyRestaurantBtnAction" fx:id="myRestaurantBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="🍽 Restaurants" />
+    <Button fx:id="manageMenuBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="📋 Manage Menu" />
+    <Button fx:id="cartBtn" onAction="#onCartBtnAction"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="🛒 Cart" />
+
+    <Button fx:id="homeBtn" onAction="#onHomeBtnAction"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            text="🏠 Home" />
+
+    <Button fx:id="profileBtn" onAction="#onProfileBtnAction"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            text="👤 Profile" />
+
+
+
+    <Button fx:id="adminPanelBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="🛠 Admin Panel" />
+</HBox>

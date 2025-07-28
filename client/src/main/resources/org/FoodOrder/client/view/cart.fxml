@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Required imports -->
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<?import javafx.scene.text.Font?>
+<BorderPane style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" fx:id="rootPane" prefWidth="600.0" prefHeight="600.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.FoodOrder.client.controllers.CartController">
+
+    <!-- External stylesheet -->
+    <stylesheets>
+        <URL value="@cart.css" />
+    </stylesheets>
+
+    <top>
+        <VBox style="-fx-background-color: white; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0);">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="🛒 Your Cart" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backBtn" onAction="#onBackBtnAction"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 12 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);"
+                        text="✕ Back">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <Label fx:id="statusMessageLbl" visible="false" styleClass="status-message" />
+        </VBox>
+    </top>
+
+    <!-- Center section: Cart items and checkout box -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="cart-scroll-pane">
+
+            <!-- Main container for items and checkout -->
+            <VBox spacing="20">
+
+                <!-- Items container (populated dynamically) -->
+                <VBox fx:id="cartItemsBox" spacing="15" styleClass="cart-items-box" />
+
+                <!-- Checkout section -->
+                <VBox spacing="20" styleClass="checkout-box">
+
+                    <!-- Address input -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="📍 Delivery Address:" styleClass="label" />
+                        <TextField fx:id="deliveryAddressField"
+                                   promptText="Enter delivery address"
+                                   styleClass="text-field" />
+                    </HBox>
+
+                    <!-- Total price and submit button -->
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <Label fx:id="totalPriceLabel" text="0.00" styleClass="total-price" />
+                        <Button fx:id="submitOrderButton"
+                                text="Submit Order"
+                                onAction="#onSubmitOrderAction"
+                                styleClass="submit-button" />
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom section: footer -->
+    <bottom>
+        <fx:include source="footer.fxml" />
+    </bottom>
+</BorderPane>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Region?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.FoodOrder.client.controllers.AdminOrdersController"
+            stylesheets="@admin-orders.css">
+
+    <style>
+        -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    </style>
+
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+    </padding>
+
+    <!-- Top Section with Back Button and Filters -->
+    <top>
+        <VBox spacing="20">
+            <!-- Back Button Row -->
+            <HBox alignment="CENTER_RIGHT">
+                <Button fx:id="backBtn" text="← Back" styleClass="back-button">
+                    <style>
+                        -fx-background-color: #6c757d;
+                        -fx-text-fill: white;
+                        -fx-font-size: 14px;
+                        -fx-font-weight: bold;
+                        -fx-padding: 10 20;
+                        -fx-background-radius: 20;
+                        -fx-cursor: hand;
+                        -fx-effect: dropshadow(gaussian, rgba(108, 117, 125, 0.3), 6, 0, 0, 2);
+                    </style>
+                </Button>
+            </HBox>
+
+            <!-- Header Section -->
+            <VBox spacing="8" alignment="CENTER">
+                <style>
+                    -fx-background-color: white;
+                    -fx-background-radius: 12;
+                    -fx-padding: 25;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+                </style>
+
+                <Label text="Admin Orders" styleClass="title-label">
+                    <style>
+                        -fx-font-size: 28px;
+                        -fx-font-weight: bold;
+                        -fx-text-fill: #2c3e50;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+                    </style>
+                </Label>
+
+                <Label text="View and manage all system orders with comprehensive details" styleClass="subtitle-label">
+                    <style>
+                        -fx-font-size: 15px;
+                        -fx-text-fill: #6c757d;
+                        -fx-font-style: italic;
+                    </style>
+                </Label>
+            </VBox>
+
+            <!-- Filter Section -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <style>
+                    -fx-background-color: white;
+                    -fx-background-radius: 12;
+                    -fx-padding: 20;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+                </style>
+
+                <TextField fx:id="searchField" promptText="Search (item name)" styleClass="filter-field"/>
+                <TextField fx:id="vendorField" promptText="Vendor ID" styleClass="filter-field"/>
+                <TextField fx:id="courierField" promptText="Courier ID" styleClass="filter-field"/>
+                <TextField fx:id="customerField" promptText="Customer ID" styleClass="filter-field"/>
+                <TextField fx:id="statusField" promptText="Status" styleClass="filter-field"/>
+                <Button fx:id="filterButton" text="🔍 Filter" onAction="#onFilterButtonAction" styleClass="filter-button"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Section - Orders -->
+    <center>
+        <ScrollPane fx:id="orderScrollPane" fitToWidth="true" fitToHeight="true">
+            <style>
+                -fx-background-color: transparent;
+            </style>
+            <content>
+                <VBox fx:id="orderHistoryBox" spacing="15" alignment="TOP_CENTER">
+                    <style>
+                        -fx-background-color: transparent;
+                        -fx-padding: 10;
+                    </style>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom Section -->
+    <bottom>
+        <fx:include source="footer.fxml"/>
+    </bottom>
+
+</BorderPane>

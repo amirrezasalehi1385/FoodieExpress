@@ -1,10 +1,10 @@
 package org.FoodOrder.server.models;
 
 
-import org.FoodOrder.server.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.FoodOrder.server.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +15,14 @@ import java.util.List;
 @DiscriminatorValue("COURIER")
 public class Courier extends User {
 
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Order> ordersAssigned = new ArrayList<>();
     public Courier() {
         super();
         setRole(Role.COURIER);
     }
-    public Courier(String fullName, String address, String phoneNumber, String email, String password, String profileImageBase64, BankInfo bankInfo) {
-        super(fullName, address, phoneNumber, email, password, profileImageBase64, bankInfo);
+    public Courier(String fullName, String address, String phoneNumber, String password) {
+        super(fullName, address, phoneNumber, password);
         setRole(Role.COURIER);
     }
 }

@@ -23,7 +23,7 @@ public class CourierDao implements UserInterface<Courier, Long> {
     }
 
     @Override
-    public Courier findById(Long id) {
+    public  Courier findById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(Courier.class, id);
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class CourierDao implements UserInterface<Courier, Long> {
 
     public Courier findByPhone(String phone) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Courier c WHERE c.phoneNumber = :phone", Courier.class)
+            return session.createQuery("FROM Courier c WHERE c.phone = :phone", Courier.class)
                     .setParameter("phone", phone)
                     .uniqueResult();
         } catch (Exception e) {

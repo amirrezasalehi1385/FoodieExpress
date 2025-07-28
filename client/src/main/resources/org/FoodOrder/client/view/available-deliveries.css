@@ -1,0 +1,257 @@
+/* available-deliveries.css */
+
+/* Main Accordion Container */
+.custom-accordion {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-spacing: 15;
+}
+
+/* TitledPane Root */
+.custom-accordion .titled-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 3);
+    -fx-padding: 0;
+    -fx-spacing: 0;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+/* TitledPane Title/Header */
+.custom-accordion .titled-pane > .title {
+    -fx-background-color: linear-gradient(to right, #74b9ff, #0984e3);
+    -fx-background-radius: 20 20 0 0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 18 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+/* TitledPane Title when Expanded */
+.custom-accordion .titled-pane:expanded > .title {
+    -fx-background-color: linear-gradient(to right, #00b894, #00a085);
+    -fx-background-radius: 20 20 0 0;
+}
+
+/* TitledPane Title Hover Effect */
+.custom-accordion .titled-pane > .title:hover {
+    -fx-background-color: linear-gradient(to right, #0984e3, #74b9ff);
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+
+/* TitledPane Arrow/Expand Icon */
+.custom-accordion .titled-pane > .title .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.custom-accordion .titled-pane > .title .arrow-button .arrow {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 4;
+    -fx-shape: "M0,0 L8,8 L16,0 Z";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/* Arrow when expanded */
+.custom-accordion .titled-pane:expanded > .title .arrow-button .arrow {
+    -fx-rotate: 180;
+}
+
+/* TitledPane Content Area */
+.custom-accordion .titled-pane > .content {
+    -fx-background-color: rgba(255, 255, 255, 0.98);
+    -fx-background-radius: 0 0 20 20;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+/* Urgent Orders - Special Styling */
+.custom-accordion .titled-pane.urgent-order > .title {
+    -fx-background-color: linear-gradient(to right, #ff6b6b, #ee5a24);
+    -fx-effect: dropshadow(gaussian, rgba(255,107,107,0.4), 10, 0, 0, 2);
+}
+
+.custom-accordion .titled-pane.urgent-order:expanded > .title {
+    -fx-background-color: linear-gradient(to right, #e17055, #d63031);
+}
+
+/* High Priority Orders */
+.custom-accordion .titled-pane.high-priority > .title {
+    -fx-background-color: linear-gradient(to right, #fdcb6e, #e17055);
+}
+
+.custom-accordion .titled-pane.high-priority:expanded > .title {
+    -fx-background-color: linear-gradient(to right, #f39c12, #d35400);
+}
+
+/* Ready for Pickup Orders */
+.custom-accordion .titled-pane.ready-order > .title {
+    -fx-background-color: linear-gradient(to right, #00b894, #00cec9);
+}
+
+.custom-accordion .titled-pane.ready-order:expanded > .title {
+    -fx-background-color: linear-gradient(to right, #00a085, #00b3a8);
+}
+
+/* Loading State */
+.custom-accordion .titled-pane.loading-pane > .title {
+    -fx-background-color: linear-gradient(to right, #ddd, #bbb);
+    -fx-text-fill: #666;
+}
+
+/* Error State */
+.custom-accordion .titled-pane.error-pane > .title {
+    -fx-background-color: linear-gradient(to right, #e74c3c, #c0392b);
+}
+
+/* Animation for expanding/collapsing */
+.custom-accordion .titled-pane {
+    -fx-transition: -fx-background-color 0.3s ease-in-out;
+}
+
+.custom-accordion .titled-pane > .title {
+    -fx-transition: -fx-background-color 0.3s ease-in-out, -fx-effect 0.2s ease-in-out;
+}
+
+/* Content specific styling for different order types */
+.order-content {
+    -fx-background-color: transparent;
+    -fx-padding: 25;
+    -fx-spacing: 15;
+}
+
+.order-header {
+    -fx-background-color: rgba(116, 185, 255, 0.08);
+    -fx-background-radius: 12;
+    -fx-padding: 15 20;
+    -fx-spacing: 10;
+}
+
+.order-details {
+    -fx-background-color: rgba(52, 73, 94, 0.05);
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+}
+
+.order-items {
+    -fx-background-color: rgba(52, 152, 219, 0.08);
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-spacing: 8;
+}
+
+.order-actions {
+    -fx-background-color: rgba(236, 240, 241, 0.7);
+    -fx-background-radius: 12;
+    -fx-padding: 15 20;
+    -fx-alignment: center-right;
+    -fx-spacing: 12;
+}
+
+/* Button styling within accordion */
+.order-actions .button {
+    -fx-background-radius: 25;
+    -fx-padding: 12 24;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0, 0, 2);
+    -fx-transition: -fx-scale-x 0.1s ease-in-out, -fx-scale-y 0.1s ease-in-out;
+}
+
+.order-actions .button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 3);
+}
+
+.order-actions .button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Accept button */
+.accept-button {
+    -fx-background-color: linear-gradient(to right, #00b894, #00cec9);
+    -fx-text-fill: white;
+}
+
+.accept-button:hover {
+    -fx-background-color: linear-gradient(to right, #00a085, #00b3a8);
+}
+
+/* Details button */
+.details-button {
+    -fx-background-color: linear-gradient(to right, #74b9ff, #0984e3);
+    -fx-text-fill: white;
+}
+
+.details-button:hover {
+    -fx-background-color: linear-gradient(to right, #0984e3, #74b9ff);
+}
+
+/* Price badge */
+.price-badge {
+    -fx-background-color: linear-gradient(to right, #00b894, #00cec9);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 20;
+    -fx-padding: 10 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,184,148,0.4), 6, 0, 0, 2);
+}
+
+/* Status indicators */
+.status-pending {
+    -fx-text-fill: #f39c12;
+}
+
+.status-confirmed {
+    -fx-text-fill: #27ae60;
+}
+
+.status-preparing {
+    -fx-text-fill: #3498db;
+}
+
+.status-ready {
+    -fx-text-fill: #e74c3c;
+}
+
+.status-delivered {
+    -fx-text-fill: #95a5a6;
+}
+
+/* Separator line */
+.content-separator {
+    -fx-background-color: linear-gradient(to right, transparent, #ecf0f1, transparent);
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+    -fx-min-height: 1;
+}
+
+/* Responsive spacing for smaller screens */
+@media (max-width: 800px) {
+    .custom-accordion .titled-pane > .title {
+        -fx-font-size: 14px;
+        -fx-padding: 15 20;
+    }
+
+    .order-content {
+        -fx-padding: 20;
+    }
+
+    .order-actions .button {
+        -fx-padding: 10 20;
+        -fx-font-size: 12px;
+    }
+}

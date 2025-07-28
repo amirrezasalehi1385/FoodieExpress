@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<?import javafx.scene.text.Font?>
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.FoodOrder.client.controllers.RestaurantOrdersController"
+            prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" stylesheets="@restaurant-orders.css">
+
+    <top>
+        <VBox style="-fx-background-color: white; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0);">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="My Restaurants' Orders 📜" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backBtn" onAction="#onBackBtnAction"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 12 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);"
+                        text="← Back">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="main-vbox">
+                <Accordion fx:id="restaurantsAccordion" styleClass="restaurant-accordion" />
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <fx:include source="footer.fxml" />
+    </bottom>
+</BorderPane>
