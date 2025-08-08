@@ -20,8 +20,7 @@ public class Server {
             server.createContext("/deliveries", DeliveryHandler.getInstance());
             server.createContext("/admin", AdminHandler.getInstance());
             server.createContext("/cart", CartHandler.getInstance());
-//            server.createContext("/transactions", TransactionHandler.getInstance());
-//            server.createContext("/wallet/top-up", WalletTopUpHandler.getInstance());
+            server.createContext("/wallet", WalletHandler.getInstance());
 //            server.createContext("/wallet/balance", WalletBalanceHandler.getInstance());
 //            server.createContext("/payment/online", PaymentHandler.getInstance());
             server.start();

@@ -134,7 +134,6 @@ public class SeeAllRestaurantsController implements Initializable {
                     throw new IOException("Failed to load restaurants");
                 }
 
-                // Load favorites
                 HttpResponse favoriteResponse = HttpController.sendRequest("http://localhost:8082/favorites", HttpMethod.GET, null, headers);
                 if (favoriteResponse.getStatusCode() == 200) {
                     List<Restaurant> favorites = objectMapper.readValue(favoriteResponse.getBody(), new TypeReference<List<Restaurant>>() {});

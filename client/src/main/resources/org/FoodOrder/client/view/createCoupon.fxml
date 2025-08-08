@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane fx:id="rootPane" prefWidth="900.0" prefHeight="600.0"
+            style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.FoodOrder.client.controllers.CouponController">
+
+    <!-- External stylesheet -->
+    <stylesheets>
+        <URL value="@cart.css" />
+    </stylesheets>
+
+    <top>
+        <VBox style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0.0, 2.0); -fx-background-radius: 15;">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="🎟 Create Coupon" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backBtn" onAction="#onBackBtnAction"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 12 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);"
+                        text="← Back">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <Label fx:id="statusMessageLbl" visible="false" styleClass="status-message" />
+        </VBox>
+    </top>
+
+    <center>
+        <!-- اضافه کردن ScrollPane برای اسکرول -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox alignment="CENTER" spacing="25" style="-fx-padding: 40;">
+                <VBox alignment="CENTER" spacing="20"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0.5, 0.0, 5.0);">
+                    <!-- Coupon Form -->
+                    <Label text="Create a New Coupon"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 0 0 15 0;" />
+
+                    <!-- Type Selection -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="Type:"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+                        <ComboBox fx:id="typeComboBox" promptText="Select coupon type"
+                                  style="-fx-pref-width: 400px; -fx-font-size: 14px; -fx-background-radius: 10px;">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="fixed" />
+                                    <String fx:value="percent" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </VBox>
+
+                    <!-- Value Input -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="Value:"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+                        <TextField fx:id="valueField" promptText="Enter discount value"
+                                   style="-fx-pref-width: 400px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #dee2e6; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 12px 15px;" />
+                    </VBox>
+
+                    <!-- Scope Input -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="Scope:"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+                        <TextField fx:id="scopeField" promptText="Enter discount scope"
+                                   style="-fx-pref-width: 400px; -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #dee2e6; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 12px 15px;" />
+                    </VBox>
+
+                    <!-- Start Date Input -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="Start Date:"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+                        <DatePicker fx:id="startDatePicker"
+                                    style="-fx-pref-width: 400px; -fx-font-size: 14px; -fx-background-radius: 10px;" />
+                    </VBox>
+
+                    <!-- End Date Input -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label text="End Date:"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+                        <DatePicker fx:id="endDatePicker"
+                                    style="-fx-pref-width: 400px; -fx-font-size: 14px; -fx-background-radius: 10px;" />
+                    </VBox>
+
+                    <!-- Create Button -->
+                    <Button fx:id="createCouponButton" text="Create Coupon" onAction="#onCreateCouponAction"
+                            style="-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 15px 30px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(46,204,113,0.4), 8, 0.5, 0, 2); -fx-min-width: 150px;" />
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <fx:include source="footer.fxml"/>
+    </bottom>
+</BorderPane>

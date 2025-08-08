@@ -7,7 +7,7 @@ public class RestaurantDto {
     private String logoBase64;
     private String address;
     private String phone;
-    private boolean isFavorite; // فیلد جدید برای انتقال وضعیت مورد علاقه
+    private boolean isFavorite;
 
     public RestaurantDto() {}
 

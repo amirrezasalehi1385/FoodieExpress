@@ -50,11 +50,11 @@ public class OrderHistoryController implements Initializable {
         Task<Map<String, Object>> task = new Task<>() {
             @Override
             protected Map<String, Object> call() throws Exception {
-                String url = BASE_URL + "/ratings/" + orderId; // تغییر به endpoint موجود
+                String url = BASE_URL + "/ratings/" + orderId;
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("Authorization", "Bearer " + UserSession.getToken());
                 HttpResponse response = HttpController.sendRequest(url, HttpMethod.GET, null, headers);
-                System.out.println("API Response for rating (orderId: " + orderId + "): " + response.getBody()); // لاگ برای دیباگ
+                System.out.println("API Response for rating (orderId: " + orderId + "): " + response.getBody());
                 if (response.getStatusCode() == 200) {
                     return objectMapper.readValue(response.getBody(), new TypeReference<Map<String, Object>>() {});
                 }
@@ -65,7 +65,7 @@ public class OrderHistoryController implements Initializable {
         task.setOnSucceeded(event -> {
             Platform.runLater(() -> {
                 Map<String, Object> ratingData = task.getValue();
-                commentsBox.getChildren().clear(); // پاک کردن محتوای قبلی
+                commentsBox.getChildren().clear();
                 Label commentsTitle = new Label("Rating:");
                 commentsTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
                 commentsBox.getChildren().add(commentsTitle);
@@ -87,7 +87,7 @@ public class OrderHistoryController implements Initializable {
 
         task.setOnFailed(event -> {
             Platform.runLater(() -> {
-                commentsBox.getChildren().clear(); // پاک کردن محتوای قبلی
+                commentsBox.getChildren().clear();
                 Label commentsTitle = new Label("Rating:");
                 commentsTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
                 commentsBox.getChildren().add(commentsTitle);
@@ -110,7 +110,10 @@ public class OrderHistoryController implements Initializable {
                 headers.set("Authorization", "Bearer " + UserSession.getToken());
                 HttpResponse response = HttpController.sendRequest(url, HttpMethod.GET, null, headers);
                 if (response.getStatusCode() == 200) {
-                    return objectMapper.readValue(response.getBody(), new TypeReference<List<Order>>() {});
+                    List<Order> orders = objectMapper.readValue(response.getBody(), new TypeReference<List<Order>>() {});
+                    // مرتب‌سازی بر اساس orderId به‌صورت نزولی
+                    orders.sort(Comparator.comparing(Order::getId, Comparator.reverseOrder()));
+                    return orders;
                 } else {
                     throw new Exception("Failed to load order history: " + response.getBody());
                 }
@@ -326,7 +329,6 @@ public class OrderHistoryController implements Initializable {
             String comment = commentArea.getText();
             if (rating != null) {
                 submitRating(order.getId(), rating, comment);
-                // پنهان کردن و آزاد کردن فضا بعد از ثبت
                 starBox.setDisable(true);
                 commentArea.setVisible(false);
                 commentArea.setManaged(false);
@@ -341,7 +343,6 @@ public class OrderHistoryController implements Initializable {
 
         loadRatingForOrder(order.getId(), starBox, commentArea, submitButton);
 
-        // بخش نمایش کامنت‌ها
         VBox commentsBox = new VBox(10);
         commentsBox.setStyle("-fx-padding: 10; -fx-background-color: #f8f9fa; -fx-background-radius: 10;");
         Label commentsTitle = new Label("Comments:");
@@ -383,16 +384,14 @@ public class OrderHistoryController implements Initializable {
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("Authorization", "Bearer " + UserSession.getToken());
                 headers.set("Content-Type", "application/json");
-
                 Map<String, Object> requestBody = new HashMap<>();
                 requestBody.put("orderId", orderId.toString());
                 requestBody.put("rating", rating);
                 requestBody.put("comment", comment != null ? comment : "");
                 String body = objectMapper.writeValueAsString(requestBody);
-
                 HttpResponse response = HttpController.sendRequest(url, HttpMethod.POST, body, headers);
-                System.out.println("Response Code: " + response.getStatusCode()); // لاگ برای دیباگ
-                System.out.println("Response Body: " + response.getBody()); // لاگ برای دیباگ
+                System.out.println("Response Code: " + response.getStatusCode());
+                System.out.println("Response Body: " + response.getBody());
                 if (response.getStatusCode() != 200) {
                     throw new Exception("Failed to submit rating: " + response.getBody());
                 }
@@ -409,7 +408,7 @@ public class OrderHistoryController implements Initializable {
         task.setOnFailed(event -> {
             Platform.runLater(() -> {
                 String errorMessage = task.getException().getMessage();
-                System.out.println("Error: " + errorMessage); // لاگ برای دیباگ
+                System.out.println("Error: " + errorMessage);
                 showStatusMessage("❌ Failed to submit rating: " + errorMessage, "#e74c3c", "#fff5f5");
             });
         });

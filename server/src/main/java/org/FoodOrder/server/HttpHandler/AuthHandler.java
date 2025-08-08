@@ -199,24 +199,19 @@ public class AuthHandler implements HttpHandler {
             Transaction transaction = session.beginTransaction();
 
             try {
-                // بررسی لاگین ادمین
                 if ("admin".equals(phone) && "admin".equals(password)) {
-                    // بررسی وجود هر کاربری با phone = "admin"
                     Query<User> query = session.createQuery("FROM User u WHERE u.phone = :phone", User.class);
                     query.setParameter("phone", phone);
                     User existingUser = query.uniqueResult();
 
                     User adminUser;
                     if (existingUser != null) {
-                        // اگر کاربر با phone = "admin" وجود دارد
                         if (existingUser.getRole() != Role.ADMIN) {
-                            // اگر نقش ADMIN نیست، نقش را به ADMIN تغییر می‌دهیم
                             existingUser.setRole(Role.ADMIN);
                             session.update(existingUser);
                         }
                         adminUser = existingUser;
                     } else {
-                        // ایجاد کاربر ادمین جدید
                         adminUser = new User();
                         adminUser.setFullName("Administrator");
                         adminUser.setPhone("admin");
@@ -237,7 +232,6 @@ public class AuthHandler implements HttpHandler {
                     return;
                 }
 
-                // لاگین کاربران عادی
                 Query<User> query = session.createQuery("FROM User u WHERE u.phone = :phone", User.class);
                 query.setParameter("phone", phone);
                 User user = query.uniqueResult();

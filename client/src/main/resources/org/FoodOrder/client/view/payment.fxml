@@ -1,26 +1,43 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.text.Font?>
 
-<!--<?import javafx.scene.control.*?>-->
-<!--<?import javafx.scene.layout.*?>-->
-<!--<?import javafx.geometry.Insets?>-->
-
-<!--<VBox prefWidth="400.0" prefHeight="300.0" spacing="20" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #f8f9fa;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.PaymentController">-->
-<!--    <Label text="Payment" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>-->
-<!--    <Label fx:id="statusMessageLbl" visible="false" style="-fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 8;"/>-->
-<!--    <HBox spacing="10" alignment="CENTER">-->
-<!--        <Label text="Total Amount:" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>-->
-<!--        <Label fx:id="totalAmountLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>-->
-<!--    </HBox>-->
-<!--    <HBox spacing="10" alignment="CENTER">-->
-<!--        <Label text="Payment Method:" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>-->
-<!--        <Label fx:id="paymentMethodLabel" text="Wallet" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>-->
-<!--    </HBox>-->
-<!--    <HBox fx:id="walletBalanceBox" spacing="10" alignment="CENTER" visible="false">-->
-<!--        <Label text="Wallet Balance:" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>-->
-<!--        <Label fx:id="walletBalanceLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>-->
-<!--    </HBox>-->
-<!--    <HBox spacing="10" alignment="CENTER">-->
-<!--        <Button fx:id="confirmPaymentButton" text="Confirm Payment" onAction="#onConfirmPaymentAction" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"/>-->
-<!--        <Button fx:id="backBtn" text="Back" onAction="#onBackBtnAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"/>-->
-<!--    </HBox>-->
-<!--</VBox>-->
+<BorderPane fx:id="rootPane" prefWidth="600.0" prefHeight="400.0" styleClass="root-pane" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.PaymentController">
+    <stylesheets>
+        <URL value="@payment.css" />
+    </stylesheets>
+    <top>
+        <VBox styleClass="header-box">
+            <Label styleClass="header-label" text="Payment 💳" />
+        </VBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40;">
+            <VBox spacing="10" styleClass="payment-form">
+                <HBox spacing="10">
+                    <Label text="Card Number:" styleClass="info-label" />
+                    <TextField fx:id="cardNumberField" styleClass="text-field" promptText="1234-5678-9012-3456" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Expiry Date:" styleClass="info-label" />
+                    <TextField fx:id="expiryDateField" styleClass="text-field" promptText="MM/YY" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="CVV:" styleClass="info-label" />
+                    <TextField fx:id="cvvField" styleClass="text-field" promptText="123" />
+                </HBox>
+                <Button fx:id="payButton" text="Pay Now" onAction="#onPayAction" styleClass="pay-button" />
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER">
+            <Button fx:id="backButton" text="Back" onAction="#onBackAction" styleClass="back-button" />
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -9,10 +9,12 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,12 +26,14 @@ import org.FoodOrder.client.models.User;
 import org.FoodOrder.client.enums.Role;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
-public class ViewUsersController {
+public class ViewUsersController implements Initializable {
 
     @FXML private TableView<User> usersTable;
     @FXML private TableColumn<User, Long> idColumn;
@@ -43,8 +47,27 @@ public class ViewUsersController {
     @FXML private Button refreshButton;
     @FXML private Button backBtn;
     @FXML private Label totalUsersLabel;
+    @FXML private BorderPane rootPane;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/FoodOrder/client/view/footer.fxml"));
+            Parent footer = loader.load();
+            FooterController footerController = loader.getController();
+            footerController.setActive("manageUsers");
+            rootPane.setBottom(footer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+        setupTableColumns();
+        setupActionColumn();
+        setupTableStyling();
+        loadUsersAsync();
+    }
+
+
+        private final ObjectMapper objectMapper = new ObjectMapper();
     private volatile boolean isLoading = false;
 
     @FXML
@@ -59,14 +82,6 @@ public class ViewUsersController {
             e.printStackTrace();
             showErrorAlert("Navigation Error", "Failed to navigate back: " + e.getMessage());
         }
-    }
-
-    @FXML
-    private void initialize() {
-        setupTableColumns();
-        setupActionColumn();
-        setupTableStyling();
-        loadUsersAsync();
     }
 
     private void setupTableColumns() {

@@ -1,6 +1,6 @@
 package org.FoodOrder.server.DAO;
 
-import org.FoodOrder.server.models.Transaction;
+import org.FoodOrder.server.models.Payment;
 import org.FoodOrder.server.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class TransactionDao {
 
-    public void save(org.FoodOrder.server.models.Transaction t) {
+    public void save(Payment t) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             org.hibernate.Transaction hibernateTx = session.beginTransaction();
             session.persist(t);
@@ -24,10 +24,10 @@ public class TransactionDao {
         }
     }
 
-    public List<org.FoodOrder.server.models.Transaction> findByUser(Long userId) {
+    public List<Payment> findByUser(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM org.FoodOrder.server.models.Transaction t WHERE t.user.id = :userId ORDER BY t.createdAt DESC";
-            Query<org.FoodOrder.server.models.Transaction> query = session.createQuery(hql, org.FoodOrder.server.models.Transaction.class);
+            String hql = "FROM org.FoodOrder.server.models.Payment t WHERE t.user.id = :userId ORDER BY t.createdAt DESC";
+            Query<Payment> query = session.createQuery(hql, Payment.class);
             query.setParameter("userId", userId);
             return query.list();
         } catch (Exception e) {
@@ -36,8 +36,8 @@ public class TransactionDao {
         }
     }
 
-    public List<org.FoodOrder.server.models.Transaction> findHistoryForAdmin(String searchFilter, String userFilter,
-                                                                             String methodFilter, String statusFilter) {
+    public List<Payment> findHistoryForAdmin(String searchFilter, String userFilter,
+                                             String methodFilter, String statusFilter) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             StringBuilder hql = new StringBuilder("SELECT DISTINCT t FROM org.FoodOrder.server.models.Transaction t ");
             Map<String, Object> params = new HashMap<>();
@@ -70,7 +70,7 @@ public class TransactionDao {
 
             hql.append(" ORDER BY t.createdAt DESC");
 
-            Query<org.FoodOrder.server.models.Transaction> query = session.createQuery(hql.toString(), org.FoodOrder.server.models.Transaction.class);
+            Query<Payment> query = session.createQuery(hql.toString(), Payment.class);
             params.forEach(query::setParameter);
             return query.list();
         } catch (Exception e) {

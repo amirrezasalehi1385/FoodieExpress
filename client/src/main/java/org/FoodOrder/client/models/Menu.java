@@ -7,8 +7,7 @@ public class Menu {
     private int id;
     private String title;
     private List<FoodItem> items = new ArrayList<>();
-    private int restaurantId;  // به جای ارجاع به Restaurant، فقط شناسه را ذخیره می‌کنیم
-
+    private int restaurantId;
     public Menu() {}
 
     public Menu(int id, String title, int restaurantId) {

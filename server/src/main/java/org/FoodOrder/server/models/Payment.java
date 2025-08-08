@@ -6,17 +6,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Transaction {
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class Transaction {
     private Order order;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private Long amount;
+    private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,7 +46,7 @@ public class Transaction {
 //    @Column(nullable = false, updatable = false)
 //    private LocalDateTime createdAt;
 
-    public Transaction(User user, Order order, Long amount, TransactionType type, TransactionMethod method, TransactionStatus status) {
+    public Payment(User user, Order order, BigDecimal amount, TransactionType type, TransactionMethod method, TransactionStatus status) {
         this.user = user;
         this.order = order;
         this.amount = amount;

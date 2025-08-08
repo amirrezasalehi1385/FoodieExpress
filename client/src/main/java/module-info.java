@@ -13,6 +13,7 @@ module org.FoodOrder.client {
     requires jjwt.api;
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
+    requires com.google.gson;
 
 
     opens org.FoodOrder.client to javafx.fxml;

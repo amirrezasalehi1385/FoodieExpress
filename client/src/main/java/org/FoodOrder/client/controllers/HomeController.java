@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -56,11 +57,40 @@ public class HomeController implements Initializable {
     @FXML
     private VBox adminOrdersVBox;
     @FXML
+    private Button walletBalanceBtn;
+    @FXML
+    private VBox walletBalanceVBox;
+    @FXML
+    private Label welcomeLabel;
+    @FXML
+    private Label welcomeSubLabel;
+    @FXML
+    private Button createCouponBtn;
+    @FXML
+    private VBox createCouponVBox;
+    @FXML
+    private Button adminRestaurantsBtn;
+    @FXML
+    private VBox adminRestaurantsVBox;
+
+    @FXML
     public void onAvailableDeliveriesBtnAction(ActionEvent event) {
         try {
             Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/availableDeliveries.fxml"));
             Scene profileScene = new Scene(profilePage);
             Stage currentStage = (Stage) availableDeliveriesBtn.getScene().getWindow();
+            currentStage.setScene(profileScene);
+        } catch (IOException ex) {
+            System.err.println("Error loading create restaurant page: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    public void onCreateCouponBtnAction(ActionEvent event) {
+        try {
+            Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/createCoupon.fxml"));
+            Scene profileScene = new Scene(profilePage);
+            Stage currentStage = (Stage) createCouponBtn.getScene().getWindow();
             currentStage.setScene(profileScene);
         } catch (IOException ex) {
             System.err.println("Error loading create restaurant page: " + ex.getMessage());
@@ -85,6 +115,18 @@ public class HomeController implements Initializable {
             Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/viewUsers.fxml"));
             Scene profileScene = new Scene(profilePage);
             Stage currentStage = (Stage) adminUserButton.getScene().getWindow();
+            currentStage.setScene(profileScene);
+        } catch (IOException ex) {
+            System.err.println("Error loading create restaurant page: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    public void onAdminRestaurantsBtnAction(ActionEvent event) {
+        try {
+            Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/adminRestaurants.fxml"));
+            Scene profileScene = new Scene(profilePage);
+            Stage currentStage = (Stage) adminRestaurantsBtn.getScene().getWindow();
             currentStage.setScene(profileScene);
         } catch (IOException ex) {
             System.err.println("Error loading create restaurant page: " + ex.getMessage());
@@ -121,6 +163,18 @@ public class HomeController implements Initializable {
             Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/buyerRestaurants.fxml"));
             Scene profileScene = new Scene(profilePage);
             Stage currentStage = (Stage) seeRestaurantBtn.getScene().getWindow();
+            currentStage.setScene(profileScene);
+        } catch (IOException ex) {
+            System.err.println("Error loading create restaurant page: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    public void onWalletBalanceBtnAction(ActionEvent event) {
+        try {
+            Parent profilePage = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/wallet.fxml"));
+            Scene profileScene = new Scene(profilePage);
+            Stage currentStage = (Stage) walletBalanceBtn.getScene().getWindow();
             currentStage.setScene(profileScene);
         } catch (IOException ex) {
             System.err.println("Error loading create restaurant page: " + ex.getMessage());
@@ -175,37 +229,60 @@ public class HomeController implements Initializable {
                     myOrderVBox.setManaged(true);
                     myFavouritesVBox.setVisible(true);
                     myFavouritesVBox.setManaged(true);
+                    walletBalanceVBox.setVisible(true);
+                    walletBalanceVBox.setManaged(true);
+                    welcomeLabel.setText("Welcome Back!");
+                    welcomeSubLabel.setText("Discover delicious meals from your favorite restaurants");
                     break;
+
                 case "SELLER":
                     myRestaurantVBox.setVisible(true);
                     myRestaurantVBox.setManaged(true);
                     restaurantOrdersVBox.setVisible(true);
                     restaurantOrdersVBox.setManaged(true);
+                    welcomeLabel.setText("Welcome Back!");
+                    welcomeSubLabel.setText("Manage your menu, orders, and reach more customers");
                     break;
+
                 case "COURIER":
                     availableDeliveriesVBox.setVisible(true);
                     availableDeliveriesVBox.setManaged(true);
                     deliveryHistoryVBox.setVisible(true);
                     deliveryHistoryVBox.setManaged(true);
+                    welcomeLabel.setText("Ready to Deliver?");
+                    welcomeSubLabel.setText("Find nearby orders and start earning now");
                     break;
+
                 case "ADMIN":
                     adminUserVBox.setVisible(true);
                     adminUserVBox.setManaged(true);
                     adminOrdersVBox.setVisible(true);
                     adminOrdersVBox.setManaged(true);
+                    welcomeLabel.setText("Welcome Admin");
+                    welcomeSubLabel.setText("Monitor platform activity and manage the ecosystem");
+                    createCouponVBox.setVisible(true);
+                    createCouponVBox.setManaged(true);
+                    adminRestaurantsVBox.setVisible(true);
+                    adminRestaurantsVBox.setManaged(true);
+                    break;
+
+                default:
+                    welcomeLabel.setText("Welcome Back!");
+                    welcomeSubLabel.setText("Enjoy seamless food ordering experience");
                     break;
             }
         }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/FoodOrder/client/view/footer.fxml"));
             Parent footer = loader.load();
             FooterController footerController = loader.getController();
-
             footerController.setActive("home");
-
             rootPane.setBottom(footer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }

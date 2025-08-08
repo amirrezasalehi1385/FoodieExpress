@@ -65,7 +65,7 @@ public class SeeFoodItemsController implements Initializable {
     private Restaurant restaurant;
     private List<FoodItem> foodItems = new ArrayList<>();
     private PauseTransition searchPause;
-    private Cart cart; // فقط بعد از لود از سرور مقداردهی می‌شه
+    private Cart cart;
     private PauseTransition cartUpdateTimer;
     private Map<Long, Integer> localSupplyCache = new HashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -193,7 +193,7 @@ public class SeeFoodItemsController implements Initializable {
             profileImageView.setImage(image);
             setupCircularClipping();
         }
-        loadCartFromServerAndRefresh(); // ترکیب لود سبد و رفرش لیست
+        loadCartFromServerAndRefresh();
     }
 
     private void loadCartFromServerAndRefresh() {
@@ -215,7 +215,7 @@ public class SeeFoodItemsController implements Initializable {
             Platform.runLater(() -> {
                 cart = cartTask.getValue();
                 updateCartButtonDisplay();
-                refreshFoodItemsList(); // بعد از لود سبد، لیست رو رفرش کن
+                refreshFoodItemsList();
             });
         });
 
@@ -223,8 +223,8 @@ public class SeeFoodItemsController implements Initializable {
             Platform.runLater(() -> {
                 Throwable ex = cartTask.getException();
                 System.err.println("❌ Failed to load cart: " + (ex != null ? ex.getMessage() : "Unknown error"));
-                cart = new Cart(); // اگه لود ناموفق باشه، یه سبد خالی تنظیم کن
-                refreshFoodItemsList(); // با این حال لیست رو رفرش کن
+                cart = new Cart();
+                refreshFoodItemsList();
             });
         });
 
@@ -298,7 +298,7 @@ public class SeeFoodItemsController implements Initializable {
                             col = 0;
                             row++;
                         }
-                        updateCardQuantity(card, item); // به‌روزرسانی تعداد با توجه به cart
+                        updateCardQuantity(card, item);
                     }
                 }
                 foodItemsGrid.setVisible(true);
@@ -610,8 +610,6 @@ public class SeeFoodItemsController implements Initializable {
                 removeFromCart(item, 1, quantityLabel, plusBtn, addToCartBtn, quantityControls);
             }
         });
-
-        // مقدار اولیه رو از سبد خرید لود کن
         int existingQuantity = cart.getItems().stream()
                 .filter(cartItem -> cartItem.getFood().getId() == item.getId())
                 .mapToInt(CartItem::getCount)
@@ -653,7 +651,7 @@ public class SeeFoodItemsController implements Initializable {
                 String token = UserSession.getToken();
                 if (token == null) {
                     System.err.println("❌ User token is null");
-                    return null; // یا یه مقدار پیش‌فرض برای جلوگیری از کرش
+                    return null;
                 }
                 headers.set("Authorization", "Bearer " + token);
 
@@ -670,9 +668,9 @@ public class SeeFoodItemsController implements Initializable {
                 body.put("restaurantId", restaurantId);
 
                 String requestBody = objectMapper.writeValueAsString(body);
-                System.out.println("Request body before send: " + requestBody); // پرینت قبل از ارسال
+                System.out.println("Request body before send: " + requestBody);
                 HttpResponse response = HttpController.sendRequest(url, HttpMethod.POST, requestBody, headers);
-                System.out.println("Server response body: " + response.getBody()); // پرینت پاسخ سرور
+                System.out.println("Server response body: " + response.getBody());
                 return response;
             }
         };
@@ -750,7 +748,6 @@ public class SeeFoodItemsController implements Initializable {
                     int newQuantity = Integer.parseInt(quantityLabel.getText()) - quantity;
                     if (newQuantity > 0) {
                         quantityLabel.setText(String.valueOf(newQuantity));
-                        // showStatusMessage("✅ Quantity updated for " + item.getName(), "#27ae60", "#f0fff4");
                         System.out.println("✅ Quantity updated for " + item.getName());
                         localSupplyCache.put(item.getId(), localSupplyCache.getOrDefault(item.getId(), item.getSupply()) + quantity);
                         plusBtn.setDisable(false);
@@ -770,7 +767,6 @@ public class SeeFoodItemsController implements Initializable {
                         quantityControls.setManaged(false);
                         addToCartBtn.setVisible(true);
                         addToCartBtn.setManaged(true);
-                        // showStatusMessage("✅ " + item.getName() + " removed from cart", "#27ae60", "#f0fff4");
                         System.out.println("✅ " + item.getName() + " removed from cart");
                         localSupplyCache.put(item.getId(), localSupplyCache.getOrDefault(item.getId(), item.getSupply()) + quantity);
                         addToCartBtn.setDisable(localSupplyCache.get(item.getId()) <= 0);
@@ -802,7 +798,6 @@ public class SeeFoodItemsController implements Initializable {
                     }
                     updateCartButtonDisplay();
                 } else {
-                    // showStatusMessage("❌ Failed to remove " + item.getName() + ": " + response.getBody(), "#e74c3c", "#fff5f5");
                     System.err.println("❌ Failed to remove " + item.getName() + ": " + response.getBody());
                 }
             });
@@ -811,7 +806,6 @@ public class SeeFoodItemsController implements Initializable {
         task.setOnFailed(event -> {
             Platform.runLater(() -> {
                 Throwable ex = task.getException();
-                // showStatusMessage("❌ Error removing from cart: " + task.getException().getMessage(), "#e74c3c", "#fff5f5");
                 System.err.println("❌ Error removing from cart: " + (ex != null ? ex.getMessage() : "Unknown error"));
             });
         });
@@ -842,7 +836,7 @@ public class SeeFoodItemsController implements Initializable {
     }
 
     private void updateCardQuantity(VBox card, FoodItem item) {
-        if (cart == null) return; // اگه cart هنوز لود نشده، چیزی نشون نده
+        if (cart == null) return;
         Node contentBox = card.getChildren().get(1);
         if (contentBox instanceof VBox) {
             VBox cartSection = (VBox) ((VBox) contentBox).getChildren().get(2);

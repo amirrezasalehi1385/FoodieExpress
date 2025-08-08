@@ -54,6 +54,8 @@ public class RestaurantInfoController implements Initializable {
     private Button addFoodItemBtn;
     private String newBase64Image = null;
     @FXML
+    private Button cancleBtn;
+    @FXML
     private ImageView profileImageView;
     private Restaurant restaurant;
     @FXML private Label statusMessageLbl;
@@ -78,7 +80,16 @@ public class RestaurantInfoController implements Initializable {
         }
         refreshFoodItemsList();
     }
-
+    @FXML
+    public void onCancleBtnAction(ActionEvent event) {
+        try {
+            Parent page = FXMLLoader.load(getClass().getResource("/org/FoodOrder/client/view/sellerRestaurant.fxml"));
+            Stage stage = (Stage) cancleBtn.getScene().getWindow();
+            stage.setScene(new Scene(page));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     private void refreshFoodItemsList() {
         foodItemsGrid.getChildren().clear();
         try {
@@ -147,7 +158,6 @@ public class RestaurantInfoController implements Initializable {
                         "-fx-border-width: 1;"
         );
 
-        // Hover effect
         card.setOnMouseEntered(e -> card.setStyle(
                 "-fx-background-color: white; " +
                         "-fx-background-radius: 20; " +
@@ -189,7 +199,7 @@ public class RestaurantInfoController implements Initializable {
         imageView.setSmooth(true);
 
         Rectangle clip = new Rectangle(180, 130);
-        clip.setArcWidth(20); // گوشه‌های گرد
+        clip.setArcWidth(20);
         clip.setArcHeight(20);
         imageView.setClip(clip);
 

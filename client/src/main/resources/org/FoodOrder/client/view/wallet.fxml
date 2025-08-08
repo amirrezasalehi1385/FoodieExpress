@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+
+<BorderPane fx:id="rootPane" prefWidth="900.0" prefHeight="1200.0" styleClass="root-pane" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.FoodOrder.client.controllers.WalletController">
+    <stylesheets>
+        <URL value="@wallet.css" />
+    </stylesheets>
+    <top>
+        <VBox styleClass="header-box">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label styleClass="header-label" text="Wallet 💰" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backBtn" onAction="#onBackBtnAction" styleClass="back-button" text="← Back">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <Label fx:id="statusMessageLbl" styleClass="status-message" />
+        </VBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="25" style="-fx-padding: 40;">
+            <VBox alignment="CENTER" spacing="20" styleClass="card-container">
+                <!-- Wallet Card Box -->
+                <VBox fx:id="walletCardBox" alignment="CENTER" spacing="10" styleClass="wallet-card">
+                    <Label fx:id="cardNumberLabel" styleClass="card-number" text="****-****-****-1234" />
+                    <Label fx:id="balanceLabel" styleClass="balance-amount" text="Balance: $150.00" />
+                    <HBox spacing="10">
+                        <Label styleClass="info-label" text="Bank Name:" />
+                        <Label fx:id="bankNameLabel" styleClass="info-value" text="Bank of Example" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label styleClass="info-label" text="Account Number:" />
+                        <Label fx:id="accountNumberLabel" styleClass="info-value" text="1234-5678-9012" />
+                    </HBox>
+                </VBox>
+                <!-- Add Funds Button (همیشه قابل مشاهده) -->
+                <Button fx:id="addFundsButton" text="Add Funds" onAction="#onAddFundsAction" styleClass="add-funds-button" />
+                <!-- Top-Up Form Section (قابل مخفی کردن) -->
+                <VBox alignment="CENTER" spacing="10" fx:id="topUpFormSection" visible="false">
+                    <HBox spacing="10" alignment="CENTER">
+                        <Label text="Amount:" styleClass="info-label" />
+                        <TextField fx:id="amountField" styleClass="text-field" promptText="Enter amount" />
+                        <ComboBox fx:id="methodComboBox" styleClass="combo-box">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="online" />
+                                    <String fx:value="card" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Button fx:id="submitTopUpBtn" text="Submit" onAction="#onSubmitTopUpAction" styleClass="add-funds-button" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <fx:include source="footer.fxml" />
+    </bottom>
+</BorderPane>

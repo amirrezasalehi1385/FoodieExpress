@@ -215,8 +215,6 @@ public class SignUpController implements Initializable {
         bankNameInput.setText("");
         accountNumberInput.setText("");
         roleComboBox.setValue(null);
-
-        // Reset all field styles to normal
         setFieldNormal(phoneInput, phoneWarning);
         setFieldNormal(passwordInput, passwordWarning);
         setFieldNormal(emailInput, emailWarning);

@@ -144,7 +144,19 @@ public class FoodFormController {
         );
         badgeContainer.getChildren().add(badge);
     }
-
+    @FXML
+    public  void onCancelBtnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/FoodOrder/client/view/restaurantInfo.fxml"));
+            Parent page = loader.load();
+            RestaurantInfoController controller = loader.getController();
+            controller.setRestaurant(restaurant);
+            Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
+            currentStage.setScene(new Scene(page));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     @FXML
     void onCreateAction(ActionEvent event) {
         statusMessageLbl.setText("");
@@ -216,6 +228,7 @@ public class FoodFormController {
                 return;
             }
         }
+
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonBody = mapper.writeValueAsString(item);

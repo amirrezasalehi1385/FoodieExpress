@@ -52,7 +52,6 @@ public class SellerRestaurantController implements Initializable {
         }
         loadRestaurants();
     }
-
     private void loadRestaurants() {
         new Thread(() -> {
             try {

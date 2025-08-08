@@ -74,16 +74,6 @@
     -fx-background-insets: 0;
 }
 
-/* Urgent Orders - Special Styling */
-.custom-accordion .titled-pane.urgent-order > .title {
-    -fx-background-color: linear-gradient(to right, #ff6b6b, #ee5a24);
-    -fx-effect: dropshadow(gaussian, rgba(255,107,107,0.4), 10, 0, 0, 2);
-}
-
-.custom-accordion .titled-pane.urgent-order:expanded > .title {
-    -fx-background-color: linear-gradient(to right, #e17055, #d63031);
-}
-
 /* High Priority Orders */
 .custom-accordion .titled-pane.high-priority > .title {
     -fx-background-color: linear-gradient(to right, #fdcb6e, #e17055);
@@ -122,7 +112,7 @@
     -fx-transition: -fx-background-color 0.3s ease-in-out, -fx-effect 0.2s ease-in-out;
 }
 
-/* Content specific styling for different order types */
+/* Content specific styling */
 .order-content {
     -fx-background-color: transparent;
     -fx-padding: 25;
@@ -134,12 +124,6 @@
     -fx-background-radius: 12;
     -fx-padding: 15 20;
     -fx-spacing: 10;
-}
-
-.order-details {
-    -fx-background-color: rgba(52, 73, 94, 0.05);
-    -fx-background-radius: 10;
-    -fx-padding: 12 16;
 }
 
 .order-items {
@@ -189,14 +173,32 @@
     -fx-background-color: linear-gradient(to right, #00a085, #00b3a8);
 }
 
-/* Details button */
-.details-button {
-    -fx-background-color: linear-gradient(to right, #74b9ff, #0984e3);
-    -fx-text-fill: white;
+/* Deliver button */
+.deliver-button {
+    -fx-background-color: #3498db; /* Blue color for Deliver button */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
 }
 
-.details-button:hover {
-    -fx-background-color: linear-gradient(to right, #0984e3, #74b9ff);
+.deliver-button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Refresh button */
+.refresh-button {
+    -fx-background-color: #3498db; /* Blue color for Refresh button */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
 }
 
 /* Price badge */
@@ -240,7 +242,7 @@
 }
 
 /* Responsive spacing for smaller screens */
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) {
     .custom-accordion .titled-pane > .title {
         -fx-font-size: 14px;
         -fx-padding: 15 20;

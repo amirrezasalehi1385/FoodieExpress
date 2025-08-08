@@ -82,6 +82,19 @@
                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
             text="🏠 Home" />
 
+    <Button fx:id="manageUsersBtn"
+            style="-fx-background-color: transparent;
+               -fx-text-fill: #7f8c8d;
+               -fx-font-size: 17;
+               -fx-pref-width: 200;
+               -fx-pref-height: 70;
+               -fx-cursor: hand;
+               -fx-background-radius: 17;
+               -fx-border-radius: 17;
+               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
+            visible="false" managed="false"
+            text="👤 Manage Users" />
+
     <Button fx:id="profileBtn" onAction="#onProfileBtnAction"
             style="-fx-background-color: transparent;
                -fx-text-fill: #7f8c8d;
@@ -94,18 +107,4 @@
                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
             text="👤 Profile" />
 
-
-
-    <Button fx:id="adminPanelBtn"
-            style="-fx-background-color: transparent;
-               -fx-text-fill: #7f8c8d;
-               -fx-font-size: 17;
-               -fx-pref-width: 200;
-               -fx-pref-height: 70;
-               -fx-cursor: hand;
-               -fx-background-radius: 17;
-               -fx-border-radius: 17;
-               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);"
-            visible="false" managed="false"
-            text="🛠 Admin Panel" />
 </HBox>

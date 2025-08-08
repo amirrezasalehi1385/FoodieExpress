@@ -3,12 +3,14 @@ package org.FoodOrder.client.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,8 +33,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 public class AvailableDeliveriesController implements Initializable {
 
@@ -44,8 +44,8 @@ public class AvailableDeliveriesController implements Initializable {
     @FXML private VBox emptyStateContainer;
     @FXML private Button backBtn;
     @FXML private Label lastUpdatedLabel;
-    @FXML private Label statusMessageLbl; // اضافه کردن Label برای پیام وضعیت
-    @FXML private Button refreshBtn; // اضافه کردن دکمه رفرش
+    @FXML private Label statusMessageLbl;
+    @FXML private Button refreshBtn;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final String BASE_URL = "http://localhost:8082";
@@ -72,7 +72,19 @@ public class AvailableDeliveriesController implements Initializable {
     private void setupUI() {
         if (emptyStateContainer != null) emptyStateContainer.setVisible(false);
         if (statusMessageLbl != null) statusMessageLbl.setVisible(false);
-        if (refreshBtn != null) refreshBtn.setVisible(false); // دکمه رفرش در حالت اولیه مخفی باشه
+        if (refreshBtn != null) {
+            refreshBtn.setVisible(true);
+            refreshBtn.getStyleClass().add("refresh-button");
+            refreshBtn.setOnMouseClicked(e -> {
+                ScaleTransition scale = new ScaleTransition(Duration.millis(100), refreshBtn);
+                scale.setToX(0.9);
+                scale.setToY(0.9);
+                scale.setCycleCount(2);
+                scale.setAutoReverse(true);
+                scale.play();
+                handleCheckAgain();
+            });
+        }
         rootPane.getStylesheets().add(getClass().getResource("/org/FoodOrder/client/view/available-deliveries.css").toExternalForm());
         scheduler = Executors.newScheduledThreadPool(1);
     }
@@ -120,7 +132,7 @@ public class AvailableDeliveriesController implements Initializable {
             @Override
             protected void failed() {
                 Platform.runLater(() -> {
-                    updateDeliveryUI(); // UI رو به‌روز کن حتی اگه خطا باشه
+                    updateDeliveryUI();
                     showStatusMessage("❌ Failed to load deliveries: " + getException().getMessage(), "#e74c3c", "#fff5f5");
                     if (findingCourierOrders.isEmpty() && onTheWayOrders.isEmpty()) {
                         showRefreshButton();
@@ -150,12 +162,15 @@ public class AvailableDeliveriesController implements Initializable {
     private void updateDeliveryUI() {
         findingCourierAccordion.getPanes().clear();
         onTheWayAccordion.getPanes().clear();
+
         if (findingCourierOrders.isEmpty() && onTheWayOrders.isEmpty()) {
             showEmptyState();
             showRefreshButton();
         } else {
             hideEmptyState();
-            hideRefreshButton();
+            VBox accordionContainer = new VBox(10);
+            accordionContainer.getChildren().addAll(findingCourierAccordion, onTheWayAccordion);
+            rootPane.setCenter(accordionContainer);
             createFindingCourierPanes();
             createOnTheWayPanes();
         }
@@ -183,15 +198,12 @@ public class AvailableDeliveriesController implements Initializable {
         TitledPane pane = new TitledPane();
         String restaurantName = restaurantNames.getOrDefault(order.getRestaurantId(), "Loading...");
         String statusIcon = getStatusIcon(order.getStatus());
-        String priorityBadge = isUrgentOrder(order) ? " 🔥" : "";
 
-        pane.setText(String.format("%s Order #%d - %s%s", statusIcon, order.getId(), restaurantName, priorityBadge));
+        pane.setText(String.format("%s Order #%d - %s", statusIcon, order.getId(), restaurantName));
         pane.setCollapsible(true);
         pane.setAnimated(true);
 
-        if (isUrgentOrder(order)) {
-            pane.getStyleClass().add("urgent-order");
-        } else if (order.getStatus().equalsIgnoreCase("ready")) {
+        if (order.getStatus().equalsIgnoreCase("ready")) {
             pane.getStyleClass().add("ready-order");
         } else {
             pane.getStyleClass().add("high-priority");
@@ -304,10 +316,6 @@ public class AvailableDeliveriesController implements Initializable {
         }
     }
 
-    private boolean isUrgentOrder(Order order) {
-        return order.getTotalPrice() > 50.0;
-    }
-
     private void addEntranceAnimation(TitledPane pane, long delay) {
         pane.setOpacity(0);
         pane.setScaleX(0.8);
@@ -329,14 +337,30 @@ public class AvailableDeliveriesController implements Initializable {
     private void showLoadingState() {
         findingCourierAccordion.getPanes().clear();
         onTheWayAccordion.getPanes().clear();
-        if (findingLoadingPane != null) findingCourierAccordion.getPanes().add(findingLoadingPane);
-        if (onTheWayLoadingPane != null) onTheWayAccordion.getPanes().add(onTheWayLoadingPane);
-        hideEmptyState();
-        hideRefreshButton();
+
+        VBox loadingContainer = new VBox(20);
+        loadingContainer.setAlignment(Pos.CENTER);
+        loadingContainer.setPadding(new Insets(50));
+
+        Label loadingIcon = new Label("🔄");
+        loadingIcon.setStyle(
+                "-fx-font-size: 48px; " +
+                        "-fx-rotate: 0;"
+        );
+
+        Label loadingText = new Label("Loading available deliveries...");
+        loadingText.setStyle(
+                "-fx-font-size: 16px; " +
+                        "-fx-text-fill: #7f8c8d;"
+        );
+
+        loadingContainer.getChildren().addAll(loadingIcon, loadingText);
+        rootPane.setCenter(loadingContainer);
     }
 
     private void showEmptyState() {
         if (emptyStateContainer != null) {
+            rootPane.setCenter(emptyStateContainer);
             emptyStateContainer.setVisible(true);
             FadeTransition fadeIn = new FadeTransition(Duration.millis(300), emptyStateContainer);
             fadeIn.setFromValue(0);
@@ -393,9 +417,7 @@ public class AvailableDeliveriesController implements Initializable {
     private void updateStatistics() {
         int findingCount = findingCourierOrders.size();
         int onTheWayCount = onTheWayOrders.size();
-        int urgentCount = (int) Stream.concat(findingCourierOrders.stream(), onTheWayOrders.stream())
-                .filter(this::isUrgentOrder).count();
-        System.out.println("Finding Courier: " + findingCount + ", On The Way: " + onTheWayCount + ", Urgent: " + urgentCount);
+        System.out.println("Finding Courier: " + findingCount + ", On The Way: " + onTheWayCount);
     }
 
     private boolean isNearbyOrder(Order order) {
@@ -432,8 +454,11 @@ public class AvailableDeliveriesController implements Initializable {
                 Platform.runLater(() -> {
                     findingCourierOrders.remove(order);
                     onTheWayOrders.add(order);
-                    updateDeliveryUI(); // به‌روز کردن UI برای آزاد کردن فضا
+                    updateDeliveryUI();
                     showStatusMessage("✅ Delivery accepted! Status updated to 'on the way'.", "#27ae60", "#e8f5e9");
+                    PauseTransition delay = new PauseTransition(Duration.millis(500));
+                    delay.setOnFinished(e -> loadAvailableDeliveries());
+                    delay.play();
                 });
             }
 
@@ -469,8 +494,11 @@ public class AvailableDeliveriesController implements Initializable {
             protected void succeeded() {
                 Platform.runLater(() -> {
                     onTheWayOrders.remove(order);
-                    updateDeliveryUI(); // به‌روز کردن UI برای آزاد کردن فضا
+                    updateDeliveryUI();
                     showStatusMessage("✅ Order delivered! Status updated to 'delivered'.", "#27ae60", "#e8f5e9");
+                    PauseTransition delay = new PauseTransition(Duration.millis(500));
+                    delay.setOnFinished(e -> loadAvailableDeliveries());
+                    delay.play();
                 });
             }
 
@@ -486,6 +514,7 @@ public class AvailableDeliveriesController implements Initializable {
 
     @FXML
     private void handleCheckAgain() {
+        showStatusMessage("Refreshing deliveries...", "#3498db", "#e8f5e9");
         loadAvailableDeliveries();
     }
 

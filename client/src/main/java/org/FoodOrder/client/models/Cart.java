@@ -5,27 +5,21 @@ import java.util.List;
 
 public class Cart {
     private Long id;
-    private Long customerId; // جایگزینی customer با customerId
+    private Long customerId;
     private List<CartItem> items = new ArrayList<>();
     public Cart() {}
-    // getter و setter برای id
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public Long getCustomerId() {
         return customerId;
     }
-
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
-
-    // getter و setter برای items
     public List<CartItem> getItems() {
         return items;
     }
@@ -33,8 +27,6 @@ public class Cart {
     public void setItems(List<CartItem> items) {
         this.items = items;
     }
-
-    // متدهای addItem و removeItem
     public void addItem(FoodItem food, int count) {
         for (CartItem item : items) {
             if (item.getFood().equals(food)) {

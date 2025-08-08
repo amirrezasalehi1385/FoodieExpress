@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Coupon {
-
+    public Coupon() {}
     private Integer id;
 
     private String couponCode;
@@ -18,21 +18,34 @@ public class Coupon {
     private Integer minPrice;
 
     private Integer userCount;
-//
-//
-//    private LocalDate startDate;
-//
-//
-//    private LocalDate endDate;
 
-    public Coupon(String couponCode, CouponType type, Long value, Integer minPrice, Integer userCount) {
+
+    private LocalDate startDate;
+
+
+    private LocalDate endDate;
+
+    public Coupon(String couponCode, CouponType type, Long value, Integer minPrice, Integer userCount, LocalDate startDate, LocalDate endDate) {
         this.couponCode = couponCode;
         this.type = type;
         this.value = value;
         this.minPrice = minPrice;
         this.userCount = userCount;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
-
+    LocalDate getStartDate() {
+        return startDate;
+    }
+    LocalDate getEndDate() {
+        return endDate;
+    }
+    public void setStartDate(LocalDate startDate){
+        this.startDate = startDate;
+    }
+    public void setEndDate(LocalDate endDate){
+        this.endDate = endDate;
+    }
     public Integer getId() {
         return id;
     }

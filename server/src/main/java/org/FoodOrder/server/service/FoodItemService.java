@@ -31,7 +31,7 @@ public class FoodItemService {
         item.setPrice(dto.getPrice());
         item.setSupply(dto.getSupply());
         item.setCategories(dto.getCategories());
-        item.setImageBase64(dto.getImageBase64()); // ❗ این خط حتما باید باشه
+        item.setImageBase64(dto.getImageBase64());
         return item;
     }
 

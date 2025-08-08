@@ -11,7 +11,6 @@ public class OrderDto {
     private List<OrderItemDto> items;
     private double totalPrice;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

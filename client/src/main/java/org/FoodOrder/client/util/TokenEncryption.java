@@ -5,7 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class TokenEncryption {
-    private static final String ENCRYPTION_KEY = "your-16-byte-key"; // کلید 16 بایتی برای AES
+    private static final String ENCRYPTION_KEY = "your-16-byte-key";
 
     public static String encrypt(String token) throws Exception {
         SecretKeySpec key = new SecretKeySpec(ENCRYPTION_KEY.getBytes(), "AES");

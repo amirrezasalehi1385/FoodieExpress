@@ -28,7 +28,7 @@ public class FooterController implements Initializable {
     @FXML
     private Button manageMenuBtn;
     @FXML
-    private Button adminPanelBtn;
+    private Button manageUsersBtn;
     @FXML
     private Button myRestaurantBtn;
     @FXML
@@ -46,8 +46,6 @@ public class FooterController implements Initializable {
                     cartBtn.setManaged(true);
                     break;
                 case "SELLER":
-                    manageMenuBtn.setVisible(true);
-                    manageMenuBtn.setManaged(true);
                     myRestaurantBtn.setVisible(true);
                     myRestaurantBtn.setManaged(true);
                     break;
@@ -56,8 +54,8 @@ public class FooterController implements Initializable {
                     deliveryBtn.setManaged(true);
                     break;
                 case "ADMIN":
-                    adminPanelBtn.setVisible(true);
-                    adminPanelBtn.setManaged(true);
+                    manageUsersBtn.setVisible(true);
+                    manageUsersBtn.setManaged(true);
                     break;
             }
         }
@@ -149,11 +147,13 @@ public class FooterController implements Initializable {
             case "restaurant" -> restaurantsBtn.setStyle(activeStyle);
             case "cart" -> cartBtn.setStyle(activeStyle);
             case "deliveries" -> deliveryBtn.setStyle(activeStyle);
+            case "manageUsers" -> manageUsersBtn.setStyle(activeStyle);
         }
         homeBtn.getStyleClass().remove("active");
         profileBtn.getStyleClass().remove("active");
         myRestaurantBtn.getStyleClass().remove("active");
         restaurantsBtn.getStyleClass().remove("active");
         cartBtn.getStyleClass().remove("active");
+        manageUsersBtn.getStyleClass().remove("active");
     }
 }

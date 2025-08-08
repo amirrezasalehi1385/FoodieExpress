@@ -19,7 +19,7 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.TRUE)
-    @JsonIgnore // نادیده گرفتن ordersAssigned موقع سریالایزیشن
+    @JsonIgnore
     private List<Order> ordersAssigned = new ArrayList<>();
 
 

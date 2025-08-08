@@ -61,7 +61,6 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // تنظیم clipping دایره‌ای برای تصویر پروفایل
         setupCircularClipping();
         fetchAndDisplayProfile();
         try {
@@ -76,16 +75,12 @@ public class ProfileController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    // متد برای تنظیم clipping دایره‌ای
     private void setupCircularClipping() {
         Circle clip = new Circle();
         clip.setRadius(40);
         clip.setCenterX(40);
         clip.setCenterY(40);
         profileImageView.setClip(clip);
-
-        // تنظیمات اضافی برای بهتر نمایش دادن عکس
         profileImageView.setFitWidth(80);
         profileImageView.setFitHeight(80);
         profileImageView.setPreserveRatio(false);
@@ -121,7 +116,6 @@ public class ProfileController implements Initializable {
                     byte[] imageBytes = Base64.getDecoder().decode(base64Image);
                     Image image = new Image(new ByteArrayInputStream(imageBytes));
                     profileImageView.setImage(image);
-                    // دوباره clipping اعمال می‌کنیم بعد از لود کردن عکس جدید
                     setupCircularClipping();
                 }
 
@@ -176,7 +170,7 @@ public class ProfileController implements Initializable {
         return (valueNode != null && !valueNode.isNull()) ? valueNode.asText() : "-";
     }
     @FXML
-    private Button logoutBtn;  // دکمه logout رو تو FXML تعریف کن و با این متغیر لینک کن
+    private Button logoutBtn;
 
     public void onLogoutAction(ActionEvent event) {
         try {
@@ -186,7 +180,7 @@ public class ProfileController implements Initializable {
             HttpResponse response = HttpController.sendRequest(
                     "http://localhost:8082/auth/logout",
                     HttpMethod.POST,
-                    "",  // <-- رشته خالی به جای null
+                    "",
                     headers
             );
 

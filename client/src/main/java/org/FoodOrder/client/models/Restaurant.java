@@ -17,7 +17,7 @@ public class Restaurant {
     private Double averageRating;
     private Integer taxFee;
     private Integer additionalFee;
-    private boolean isFavorite; // فیلد جدید برای وضعیت مورد علاقه
+    private boolean isFavorite;
 
     public Restaurant() {
     }
@@ -29,8 +29,6 @@ public class Restaurant {
         this.seller = seller;
         this.logoBase64 = logoBase64;
     }
-
-    // Getter and Setter methods
 
     public int getId() {
         return id;

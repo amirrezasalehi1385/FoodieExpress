@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.text.Font?>
 <BorderPane fx:id="rootPane" prefWidth="900" prefHeight="700"
             style="-fx-background: linear-gradient(to bottom right, #667eea 0%, #764ba2 100%);"
             xmlns="http://javafx.com/javafx/24.0.1"
@@ -26,13 +27,13 @@
                            text="Manage restaurant information and menu" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
-                <!-- Beautiful Close Button -->
-                <StackPane>
-                    <!-- Main close button -->
-                    <Button fx:id="closeBtn" onAction="#onCloseActionBtn"
-                            style="-fx-text-fill: white; -fx-background-radius: 50; -fx-border-color: rgb(255,255,255); -fx-border-radius: 50; -fx-border-width: 1.5; -fx-padding: 0; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;"
-                            text="✕" prefWidth="40" prefHeight="40"/>
-                </StackPane>
+                <Button fx:id="closeBtn" onAction="#onCloseActionBtn"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 12 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0.0, 2.0);"
+                        text="Close">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
             </HBox>
         </VBox>
     </top>
@@ -104,7 +105,7 @@
                         <Button fx:id="addFoodBtn"
                                 text="➕ Add New Food Item"
                                 onAction="#addFoodItemActionBtn"
-                                style="-fx-background-color: linear-gradient(135deg, #1abc9c, #16a085); -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 600; -fx-background-radius: 25; -fx-padding: 12 24; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26, 188, 156, 0.3), 10, 0, 0, 3);"/>
+                                style="-fx-background-color: linear-gradient(to bottom right, #1abc9c, #16a085); -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-padding: 12px 24px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(26, 188, 156, 0.3), 10, 0, 0, 3);"/>
                     </HBox>
 
                     <!-- Food Items Grid (2 Columns) -->

@@ -394,19 +394,16 @@ public class FavoriteRestaurantsController implements Initializable {
                 HttpResponse response = HttpController.sendRequest(url, HttpMethod.DELETE, null, headers);
                 Platform.runLater(() -> {
                     if (response.getStatusCode() == 200) {
-                        // پیدا کردن HBox والد کارت
                         Node parent = card.getParent();
                         if (parent instanceof HBox) {
                             HBox parentHBox = (HBox) parent;
                             parentHBox.getChildren().remove(card);
-                            // اگر HBox خالی شد، اون رو از mainContainer حذف کن
                             if (parentHBox.getChildren().isEmpty()) {
                                 Node grandParent = parentHBox.getParent();
                                 if (grandParent instanceof VBox) {
                                     ((VBox) grandParent).getChildren().remove(parentHBox);
                                 }
                             }
-                            // اگر هیچ کارتی باقی نموند، حالت خالی رو نمایش بده
                             if (restaurantContainer.getChildren().isEmpty() ||
                                     (restaurantContainer.getChildren().size() == 1 &&
                                             ((VBox) restaurantContainer.getChildren().get(0)).getChildren().isEmpty())) {

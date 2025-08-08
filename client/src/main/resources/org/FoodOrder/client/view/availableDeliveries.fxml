@@ -33,6 +33,10 @@
                     <Label text="Find the perfect delivery opportunity for you" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="refreshBtn" text="🔄 Refresh" onAction="#handleCheckAgain"
+                        styleClass="refresh-button" />
+                <Button fx:id="backBtn" text="⬅ Back" onAction="#onBackBtnAction"
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 25; -fx-padding: 12 24; -fx-font-weight: bold; -fx-cursor: hand;" />
             </HBox>
         </VBox>
     </top>
@@ -52,7 +56,11 @@
                         <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 15; -fx-padding: 20 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
                             <Label text="📋 Delivery Opportunities" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
                             <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lastUpdatedLabel" text="Last updated: --:--" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
                         </HBox>
+
+                        <!-- Status message -->
+                        <Label fx:id="statusMessageLbl" visible="false" style="-fx-font-size: 14px; -fx-padding: 10; -fx-background-radius: 5;" />
 
                         <!-- Accordion: Finding courier -->
                         <Accordion fx:id="findingCourierAccordion" prefWidth="900.0" styleClass="custom-accordion">
@@ -101,9 +109,8 @@
                                    style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
                             <Label text="New delivery opportunities will appear here automatically"
                                    style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;" />
-                            <Button text="🔄 Check Again"
-                                    onAction="#handleCheckAgain"
-                                    style="-fx-background-color: linear-gradient(to bottom right, #74b9ff, #0984e3); -fx-text-fill: white; -fx-background-radius: 25; -fx-padding: 12 24; -fx-font-weight: bold; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" />
+                            <Button text="🔄 Check Again" fx:id="refreshBtnEmpty" onAction="#handleCheckAgain"
+                                    styleClass="refresh-button" />
                         </VBox>
                     </VBox>
                 </content>

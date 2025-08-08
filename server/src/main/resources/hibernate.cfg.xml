@@ -34,7 +34,7 @@
         <mapping class="org.FoodOrder.server.models.Cart"/>
         <mapping class="org.FoodOrder.server.models.BankInfo"/>
         <mapping class="org.FoodOrder.server.models.Coupon"/>
-        <mapping class="org.FoodOrder.server.models.Transaction"/>
+        <mapping class="org.FoodOrder.server.models.Payment"/>
         <mapping class="org.FoodOrder.server.models.Admin"/>
 
 

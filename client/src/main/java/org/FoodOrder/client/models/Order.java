@@ -12,6 +12,9 @@ public class Order {
     private String status;
     private List<OrderItem> items;
     private double totalPrice;
+    private String customerName;
+    private String customerPhone;
+
     public Long getId() {
         return id;
     }
@@ -64,9 +67,23 @@ public class Order {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+    public String getCustomerName() {
+        return customerName;
+    }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
     @Override
     public String toString() {
         return String.format("Order ID: %d, Address: %s, Total: $%.2f, Status: %s",
                 id, deliveryAddress, totalPrice, status);
     }
 }
+

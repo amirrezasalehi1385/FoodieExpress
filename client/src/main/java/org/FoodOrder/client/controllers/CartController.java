@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -33,6 +34,7 @@ import org.FoodOrder.client.models.Restaurant;
 import org.FoodOrder.client.sessions.UserSession;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,17 +50,23 @@ public class CartController implements Initializable {
     @FXML private Label statusMessageLbl;
     @FXML private TextField deliveryAddressField;
     @FXML private BorderPane rootPane;
+    @FXML private RadioButton walletPaymentRadio;
+    @FXML private RadioButton onlinePaymentRadio;
+
     private Restaurant restaurant;
     private Cart cart;
     private List<FoodItem> foodItems = new ArrayList<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private PauseTransition cartRefreshTimer;
+    private BigDecimal walletBalance = BigDecimal.ZERO;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cartItemsBox.setSpacing(15);
         cartItemsBox.setPadding(new Insets(10));
+        submitOrderButton.setDisable(true);
         setupCartRefreshTimer();
+        loadWalletBalance();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/FoodOrder/client/view/footer.fxml"));
             Parent footer = loader.load();
@@ -101,6 +109,7 @@ public class CartController implements Initializable {
         task.setOnSucceeded(event -> {
             cart = task.getValue();
             updateCartUI();
+            checkSubmitButtonState();
         });
 
         task.setOnFailed(event -> {
@@ -157,6 +166,7 @@ public class CartController implements Initializable {
     }
 
     private VBox createCartItemBox(FoodItem item, int quantity) {
+
         VBox itemBox = new VBox(15);
         itemBox.setStyle(
                 "-fx-background-color: white; " +
@@ -229,7 +239,7 @@ public class CartController implements Initializable {
         Label totalPriceLabel = new Label(String.format("$%.2f", (double) item.getPrice() * quantity));
         totalPriceLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #27ae60; -fx-font-weight: bold;");
 
-        Button removeBtn = new Button("🗑️ Remove");
+        Button removeBtn = new Button("❌ Remove");
         removeBtn.setStyle(
                 "-fx-background-color: #e74c3c; " +
                         "-fx-text-fill: white; " +
@@ -259,6 +269,7 @@ public class CartController implements Initializable {
     }
 
     private void checkStockAndUpdateQuantity(FoodItem item, int changeAmount, Label quantityLabel, Label totalPriceLabel) {
+
         Task<FoodItem> task = new Task<>() {
             @Override
             protected FoodItem call() throws Exception {
@@ -319,6 +330,7 @@ public class CartController implements Initializable {
         task.setOnSucceeded(event -> {
             cart = task.getValue();
             updateCartUI();
+            checkSubmitButtonState();
             showStatusMessage("✅ " + item.getName() + " updated in cart", "#27ae60", "#f0fff4");
         });
 
@@ -352,6 +364,7 @@ public class CartController implements Initializable {
         task.setOnSucceeded(event -> {
             cart = task.getValue();
             updateCartUI();
+            checkSubmitButtonState();
             showStatusMessage("✅ " + item.getName() + " removed from cart", "#27ae60", "#f0fff4");
         });
 
@@ -384,10 +397,63 @@ public class CartController implements Initializable {
                     return;
                 }
             }
+            double totalPrice = Double.parseDouble(totalPriceLabel.getText().replace("$", ""));
+            if (walletBalance.compareTo(BigDecimal.valueOf(totalPrice)) < 0) {
+                showStatusMessage("❌ Insufficient balance in wallet", "#e74c3c", "#fff5f5");
+                return;
+            }
+            deductFromWallet(totalPrice);
 
+        } catch (Exception e) {
+            Platform.runLater(() -> {
+                showStatusMessage("❌ Error: " + e.getMessage(), "#e74c3c", "#fff5f5");
+            });
+            e.printStackTrace();
+        }
+    }
+
+    private void deductFromWallet(double amount) {
+        Task<HttpResponse> task = new Task<>() {
+            @Override
+            protected HttpResponse call() throws Exception {
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Authorization", "Bearer " + UserSession.getToken());
+                Map<String, Object> bodyMap = new HashMap<>();
+                bodyMap.put("amount", amount);
+                String body = objectMapper.writeValueAsString(bodyMap);
+                HttpResponse response = HttpController.sendRequest("http://localhost:8082/wallet/deduct", HttpMethod.POST, body, headers);
+                return response;
+            }
+        };
+
+        task.setOnSucceeded(event -> {
+            HttpResponse response = task.getValue();
+            if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+                Platform.runLater(() -> {
+                    showStatusMessage("✅ Payment successful! Order submitted.", "#27ae60", "#f0fff4");
+                    submitOrder();
+                });
+            } else {
+                Platform.runLater(() -> {
+                    showStatusMessage("❌ Payment failed: " + response.getBody(), "#e74c3c", "#fff5f5");
+                });
+            }
+        });
+
+        task.setOnFailed(event -> {
+            Platform.runLater(() -> {
+                showStatusMessage("❌ Error deducting from wallet: " + task.getException().getMessage(), "#e74c3c", "#fff5f5");
+            });
+        });
+
+        new Thread(task).start();
+    }
+
+    private void submitOrder() {
+        try {
             Map<String, Object> orderData = new HashMap<>();
             orderData.put("vendor_id", restaurant.getId());
-            orderData.put("delivery_address", deliveryAddress);
+            orderData.put("delivery_address", deliveryAddressField.getText());
             List<Map<String, Object>> items = new ArrayList<>();
             for (CartItem cartItem : cart.getItems()) {
                 Map<String, Object> item = new HashMap<>();
@@ -502,6 +568,48 @@ public class CartController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
             showStatusMessage("❌ Error navigating back", "#e74c3c", "#fff5f5");
+        }
+    }
+
+    private void loadWalletBalance() {
+        Task<BigDecimal> task = new Task<>() {
+            @Override
+            protected BigDecimal call() throws Exception {
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Authorization", "Bearer " + UserSession.getToken());
+                HttpResponse response = HttpController.sendRequest("http://localhost:8082/wallet/balance", HttpMethod.GET, null, headers);
+                if (response.getStatusCode() == 200) {
+                    Map<String, Object> data = objectMapper.readValue(response.getBody(), Map.class);
+                    return new BigDecimal(data.get("balance").toString());
+                }
+                return BigDecimal.ZERO;
+            }
+        };
+
+        task.setOnSucceeded(event -> {
+            walletBalance = task.getValue();
+            checkSubmitButtonState();
+        });
+
+        task.setOnFailed(event -> {
+            showStatusMessage("❌ Error loading wallet balance", "#e74c3c", "#fff5f5");
+        });
+
+        new Thread(task).start();
+    }
+
+    private void checkSubmitButtonState() {
+        if (cart == null || cart.getItems() == null || cart.getItems().isEmpty()) {
+            submitOrderButton.setDisable(true);
+            return;
+        }
+
+        double totalPrice = Double.parseDouble(totalPriceLabel.getText().replace("$", ""));
+        boolean isWalletSelected = walletPaymentRadio.isSelected();
+        if (isWalletSelected && walletBalance.compareTo(BigDecimal.valueOf(totalPrice)) >= 0) {
+            submitOrderButton.setDisable(false);
+        } else {
+            submitOrderButton.setDisable(true);
         }
     }
 
